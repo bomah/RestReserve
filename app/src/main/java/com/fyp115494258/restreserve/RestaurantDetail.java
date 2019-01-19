@@ -3,13 +3,20 @@ package com.fyp115494258.restreserve;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.fyp115494258.restreserve.Interface.ItemClickListener;
+import com.fyp115494258.restreserve.Model.ReservationSlot;
 import com.fyp115494258.restreserve.Model.Restaurant;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
+import com.fyp115494258.restreserve.ViewHolder.TimeViewHolder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +43,13 @@ public class RestaurantDetail extends AppCompatActivity {
     String RestaurantId = "";
     FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder> adapter;
 
+    DatabaseReference reservationSlot;
+
+    RecyclerView recycler_time;
+    RecyclerView.LayoutManager layoutManager;
+
+    FirebaseRecyclerAdapter<ReservationSlot,TimeViewHolder> recyclerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +60,18 @@ public class RestaurantDetail extends AppCompatActivity {
         //Firebase
         database = FirebaseDatabase.getInstance();
         restaurant = database.getReference("Restaurant");
+
+
+        reservationSlot = database.getReference("ReservationSlot");
+
+
+
+
+        //Time Slot
+        recycler_time=(RecyclerView)findViewById(R.id.recycler_time);
+        recycler_time.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        recycler_time.setLayoutManager(layoutManager);
 
 
 
@@ -67,8 +93,65 @@ public class RestaurantDetail extends AppCompatActivity {
             RestaurantId = getIntent().getStringExtra("RestaurantId");
         if(!RestaurantId.isEmpty()){
             getDetailRestaurant(RestaurantId);
+            getTimes(RestaurantId);
         }
     }
+
+
+    private void getTimes(String restaurantId) {
+
+
+        //Query time = reservationSlot.orderByChild("restaurantId").equalTo(restaurantId);
+
+
+        recyclerAdapter = new FirebaseRecyclerAdapter<ReservationSlot, TimeViewHolder>(ReservationSlot.class,
+                R.layout.timeslot_item,
+                TimeViewHolder.class,
+                reservationSlot.orderByChild("restaurantId").equalTo(restaurantId)) {
+            @Override
+            protected void populateViewHolder(TimeViewHolder viewHolder, ReservationSlot model, int position) {
+
+
+
+
+
+
+
+
+                viewHolder.btnTime.setText(model.getTime());
+
+
+                viewHolder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+
+                    }
+                });
+
+
+                final ReservationSlot clickItem=model;
+                viewHolder.setItemClickListener(new ItemClickListener() {
+                                                    @Override
+                                                    public void onClick(View view, int position, boolean isLongClick) {
+                                                        Toast.makeText(RestaurantDetail.this, ""+clickItem.getTime(),Toast.LENGTH_SHORT).show();
+
+
+                                                    }
+                                                }
+
+                );
+
+
+            }
+        };
+        recycler_time.setAdapter(recyclerAdapter);
+
+
+    }
+
+
+
+
 
     private void getDetailRestaurant(String restaurantId) {
 

@@ -105,6 +105,53 @@ to aid my understanding-->
 
             </android.support.v7.widget.CardView>
 
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/time_slot"
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingMultiplier="1.5"
+                        android:padding="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="Time Slot"
+                        android:layout_margin="0dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingLeft="16dp"
+                    android:paddingBottom="20dp"/>
+
+
+
+
+            </android.support.v7.widget.CardView>
+
+
             <android.support.v7.widget.CardView
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true"
