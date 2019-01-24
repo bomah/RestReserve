@@ -1,11 +1,14 @@
 package com.fyp115494258.restreserve;
 
+import android.app.DatePickerDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +24,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
 
 public class RestaurantDetail extends AppCompatActivity {
 
@@ -49,6 +55,26 @@ public class RestaurantDetail extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
     FirebaseRecyclerAdapter<ReservationSlot,TimeViewHolder> recyclerAdapter;
+
+
+    //
+    EditText edtChooseDate;
+
+    DatePickerDialog datePickerDialog;
+
+    int year;
+    int month;
+    int dayOfMonth;
+
+    Calendar calendar;
+
+    String dateChoosen;
+
+    String currentRestId;
+
+    String restId;
+
+    String dateRestaurantId;
 
 
     @Override
@@ -88,63 +114,149 @@ public class RestaurantDetail extends AppCompatActivity {
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 
+
+        //
+        edtChooseDate=(EditText)findViewById(R.id.edtChooseDate);
+
+        /*
+        edtChooseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(RestaurantDetail.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        edtChooseDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        dateChoosen = edtChooseDate.getText().toString();
+
+
+
+                    }
+                }, year, month, dayOfMonth);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.show();
+
+            }
+        });
+
+*/
+
+
         //Get food ID from Intent
         if(getIntent() != null)
             RestaurantId = getIntent().getStringExtra("RestaurantId");
         if(!RestaurantId.isEmpty()){
             getDetailRestaurant(RestaurantId);
-            getTimes(RestaurantId);
+            //getTimes(RestaurantId);
+            currentRestId = RestaurantId;
+            getDate(RestaurantId);
+
         }
     }
 
+    private void getDate(final String restaurantId) {
 
-    private void getTimes(String restaurantId) {
+        //reservationSlot.orderByChild("restaurantId").equalTo(restaurantId);
+
+        edtChooseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(RestaurantDetail.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        edtChooseDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+
+
+                        dateChoosen = edtChooseDate.getText().toString() + restaurantId;
+
+
+
+                        getTimes(dateChoosen);
+
+
+
+
+                    }
+                }, year, month, dayOfMonth);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.show();
+
+            }
+        });
+    }
+
+
+    private void getTimes(final String dateChoosen) {
 
 
         //Query time = reservationSlot.orderByChild("restaurantId").equalTo(restaurantId);
 
 
-        recyclerAdapter = new FirebaseRecyclerAdapter<ReservationSlot, TimeViewHolder>(ReservationSlot.class,
-                R.layout.timeslot_item,
-                TimeViewHolder.class,
-                reservationSlot.orderByChild("restaurantId").equalTo(restaurantId)) {
-            @Override
-            protected void populateViewHolder(TimeViewHolder viewHolder, ReservationSlot model, int position) {
+        //reservationSlot.orderByChild("restaurantId").equalTo(currentRestId);
+
+
+
+            recyclerAdapter = new FirebaseRecyclerAdapter<ReservationSlot, TimeViewHolder>(ReservationSlot.class,
+                    R.layout.timeslot_item,
+                    TimeViewHolder.class,
+                    //reservationSlot.orderByChild("restaurantId").equalTo(restaurantId)
+
+                    reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen) ) {
+                @Override
+                protected void populateViewHolder(TimeViewHolder viewHolder, ReservationSlot model, int position) {
 
 
 
 
 
 
+                    viewHolder.btnTime.setText(model.getTime());
 
 
-                viewHolder.btnTime.setText(model.getTime());
+                    viewHolder.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onClick(View view, int position, boolean isLongClick) {
+
+                        }
+                    });
 
 
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-
-                    }
-                });
-
-
-                final ReservationSlot clickItem=model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                                                    @Override
-                                                    public void onClick(View view, int position, boolean isLongClick) {
-                                                        Toast.makeText(RestaurantDetail.this, ""+clickItem.getTime(),Toast.LENGTH_SHORT).show();
+                    final ReservationSlot clickItem = model;
+                    viewHolder.setItemClickListener(new ItemClickListener() {
+                                                        @Override
+                                                        public void onClick(View view, int position, boolean isLongClick) {
+                                                            Toast.makeText(RestaurantDetail.this, "" + clickItem.getTime(), Toast.LENGTH_SHORT).show();
 
 
+                                                        }
                                                     }
-                                                }
 
-                );
+                    );
 
 
-            }
-        };
-        recycler_time.setAdapter(recyclerAdapter);
+                }
+            };
+            recycler_time.setAdapter(recyclerAdapter);
+
+
+
+
+
 
 
     }
