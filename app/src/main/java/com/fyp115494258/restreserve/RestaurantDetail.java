@@ -44,6 +44,7 @@ public class RestaurantDetail extends AppCompatActivity {
     DatabaseReference restaurant;
     Restaurant currentRestaurant;
 
+    //
 
 
     String RestaurantId = "";
