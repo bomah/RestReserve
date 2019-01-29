@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:text="2 People"
+                    
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
             </LinearLayout>
