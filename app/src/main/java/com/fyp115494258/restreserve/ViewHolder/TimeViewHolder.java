@@ -12,7 +12,8 @@ import com.fyp115494258.restreserve.R;
 public class TimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-
+   //Referred to the following : https://stackoverflow.com/questions/41223413/how-to-hide-an-item-from-recycler-view-on-a-particular-condition
+   // To hide the layout
     public Button btnTime;
 
 

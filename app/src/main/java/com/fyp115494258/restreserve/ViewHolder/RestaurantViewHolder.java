@@ -12,6 +12,7 @@ import com.fyp115494258.restreserve.R;
 public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
+    //Referred to the following video: https://www.youtube.com/watch?v=dJm7LACOn80&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=2
     //2ND ITERATION
     public TextView txtRestaurantName;
     public ImageView imageView;

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
 import com.fyp115494258.restreserve.Model.Reservation;
 import com.fyp115494258.restreserve.Model.ReservationSlot;
@@ -39,6 +40,7 @@ import java.util.Calendar;
 
 public class RestaurantDetail extends AppCompatActivity {
 
+    //Referred to the following video: https://www.youtube.com/watch?v=T19qTLVDFV0&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=4
 
     TextView restaurant_name, restaurant_location, restaurant_description,restaurant_phoneNumber;
     ImageView restaurant_image;
@@ -110,6 +112,8 @@ public class RestaurantDetail extends AppCompatActivity {
     TextView txtDate;
     TextView txtTime;
     TextView txtNumberOfPeople;
+
+    TextView txtPersonName;
 
     ReservationSlot peopleSelected;
 
@@ -250,6 +254,8 @@ public class RestaurantDetail extends AppCompatActivity {
 
 
 
+        //Referred to the following video:https://www.youtube.com/watch?v=CNGLsYPZd_o
+        // to setup the date picker
 
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -349,7 +355,7 @@ public class RestaurantDetail extends AppCompatActivity {
 
         //reservationSlot.orderByChild("restaurantId").equalTo(currentRestId);
 
-        reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen);
+       // reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen);
 
 
 
@@ -362,7 +368,8 @@ public class RestaurantDetail extends AppCompatActivity {
                 //reservationSlot.orderByChild("restaurantId").equalTo(restaurantId)
 
                // reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen)
-                reservationSlot.orderByChild("time")) {
+                //reservationSlot.orderByChild("time")
+                reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen)) {
             @Override
             protected void populateViewHolder(TimeViewHolder viewHolder, ReservationSlot model, int position) {
 
@@ -472,20 +479,23 @@ public class RestaurantDetail extends AppCompatActivity {
 
 
         txtRestaurantName = make_reservation_layout.findViewById(R.id.txtRestaurantName);
+        txtPersonName= make_reservation_layout.findViewById(R.id.txtPersonName);
         txtDate = make_reservation_layout.findViewById(R.id.txtDate);
         txtTime= make_reservation_layout.findViewById(R.id.txtTime);
         txtNumberOfPeople= make_reservation_layout.findViewById(R.id.txtNumberOfPeople);
         txtReservationSlotKey= make_reservation_layout.findViewById(R.id.txtReservationSlotKey);
 
         txtRestaurantName.setText(currentRestaurant.getName());
+        txtPersonName.setText(Common.currentUser.getName());
+
         txtDate.setText(dateSelected);
         txtTime.setText(time);
-        txtNumberOfPeople.setText(String.valueOf(peopleCount));
-        txtReservationSlotKey.setText(reservationSlotKey);
+        txtNumberOfPeople.setText(String.valueOf(peopleCount).concat( " People"));
+        //txtReservationSlotKey.setText(reservationSlotKey);
 
 
 
-        newReservation=new Reservation(txtRestaurantName.getText().toString(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
+        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),txtPersonName.getText().toString(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminPhoneNumber(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
 
 
         alertDialog.setView(make_reservation_layout);
@@ -551,6 +561,8 @@ public class RestaurantDetail extends AppCompatActivity {
                 restaurant_description.setText(currentRestaurant.getDescription());
 
                 restaurant_phoneNumber.setText(currentRestaurant.getPhoneNumber());
+
+                Common.currentRestaurant=currentRestaurant;
 
 
 

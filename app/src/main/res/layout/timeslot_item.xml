@@ -5,6 +5,11 @@
     android:id="@+id/llTimeSlot">
 
 
+    <!--referred to the following: https://stackoverflow.com/questions/45947992/big-space-between-items-in-android-recyclerview
+    -->
+   <!--referred to the following: https://github.com/yanchummar/FlipTable/blob/master/FlipTable/app/src/main/res/layout/time_slot_item.xml
+
+   -->
 
     <Button
         android:id="@+id/btnTimeSlot"

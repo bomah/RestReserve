@@ -4,16 +4,19 @@ public class User {
 
     private String name;
     private String password;
+    private String phoneNumber;
 
     public User(){
 
     }
 
-    public User(String Name, String Password){
+    public User(String Name, String Password,String PhoneNumber){
         setName(Name);
         setPassword(Password);
+        setPhoneNumber(PhoneNumber);
 
     }
+
 
 
     public String getName() {
@@ -30,5 +33,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

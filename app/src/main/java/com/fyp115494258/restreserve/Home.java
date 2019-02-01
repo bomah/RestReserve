@@ -33,7 +33,7 @@ public class Home extends AppCompatActivity
     //2nd Iteration
 
 
-    //
+    //Referred to the following video: https://www.youtube.com/watch?v=k1RUOexThGs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=3
 
     FirebaseDatabase database;
     DatabaseReference restaurant;
