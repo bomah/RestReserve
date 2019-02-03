@@ -8,4 +8,6 @@ public class Common {
     public static User currentUser;
 
     public static Restaurant currentRestaurant;
+
+    public static final String INTENT_RESTAURANT_ID="RestaurantId";
 }

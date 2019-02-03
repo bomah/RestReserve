@@ -2,10 +2,12 @@ package com.fyp115494258.restreserve;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
 import com.fyp115494258.restreserve.Model.Restaurant;
@@ -107,19 +111,17 @@ public class Home extends AppCompatActivity
 
     private void loadRestaurant() {
 
-        adapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(Restaurant.class,R.layout.restaurant_item,RestaurantViewHolder.class,restaurant) {
+        FirebaseRecyclerOptions<Restaurant> options = new FirebaseRecyclerOptions.Builder<Restaurant>()
+                .setQuery(restaurant,Restaurant.class)
+                .build();
+
+        adapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(options) {
             @Override
-            protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant model, int position) {
-
-
-
-
-
-
+            protected void onBindViewHolder(@NonNull RestaurantViewHolder viewHolder, int position, @NonNull Restaurant model) {
 
 
                 viewHolder.txtRestaurantName.setText(model.getName());
-                Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.imageView);
+                Picasso.get().load(model.getImage()).into(viewHolder.imageView);
 
 
                 final Restaurant clickItem=model;
@@ -136,14 +138,37 @@ public class Home extends AppCompatActivity
                                                 }
 
                 );
+            }
 
+            @NonNull
+            @Override
+            public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.restaurant_item,parent,false);
+                return new RestaurantViewHolder(itemView);
             }
         };
+        adapter.startListening();
         recycler_menu.setAdapter(adapter);
+
     }
 
 
+/*
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        adapter.startListening();
+    }
+
+ */
 
     @Override
     public void onBackPressed() {
@@ -180,7 +205,12 @@ public class Home extends AppCompatActivity
 
         if (id == R.id.nav_menu) {
             return true;
-        } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_reservations) {
+            Intent reservationList = new Intent(Home.this, ReservationList.class);
+            startActivity(reservationList);
+
+        }
+        else if (id == R.id.nav_logout) {
             Intent signIn =new Intent(Home.this,SignIn.class);
 
             //signIn.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

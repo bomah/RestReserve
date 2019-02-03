@@ -15,6 +15,13 @@
             android:title="Menu" />
 
         <item
+            android:id="@+id/nav_reservations"
+            android:icon="@drawable/ic_access_time_black_24dp"
+
+            android:iconTint="@android:color/white"
+            android:title="Reservations" />
+
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
 

@@ -2,7 +2,10 @@ package com.fyp115494258.restreserve;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,22 +15,29 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
+import com.fyp115494258.restreserve.Model.Rating;
 import com.fyp115494258.restreserve.Model.Reservation;
 import com.fyp115494258.restreserve.Model.ReservationSlot;
 import com.fyp115494258.restreserve.Model.Restaurant;
+import com.fyp115494258.restreserve.ViewHolder.ReservationViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.TimeViewHolder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,10 +45,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.stepstone.apprating.AppRatingDialog;
+import com.stepstone.apprating.listener.RatingDialogListener;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 import java.util.Calendar;
 
-public class RestaurantDetail extends AppCompatActivity {
+public class RestaurantDetail extends AppCompatActivity implements RatingDialogListener {
 
     //Referred to the following video: https://www.youtube.com/watch?v=T19qTLVDFV0&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=4
 
@@ -125,6 +140,16 @@ public class RestaurantDetail extends AppCompatActivity {
     ReservationSlot resSlot;
 
 
+    //Rating
+    FloatingActionButton btnRating;
+    RatingBar ratingBar;
+
+    DatabaseReference ratingTbl;
+
+    //Comments
+    Button btnShowComment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +166,8 @@ public class RestaurantDetail extends AppCompatActivity {
 
         reservation=database.getReference("Reservation");
 
+        ratingTbl=database.getReference("Rating");
+
 
 
 
@@ -149,6 +176,31 @@ public class RestaurantDetail extends AppCompatActivity {
         //recycler_time.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recycler_time.setLayoutManager(layoutManager);
+
+
+        //Comments
+        btnShowComment=(Button)findViewById(R.id.btnShowComment);
+        btnShowComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(RestaurantDetail.this,ShowComment.class);
+                intent.putExtra(Common.INTENT_RESTAURANT_ID,currentRestId);
+                startActivity(intent);
+            }
+        });
+
+
+        //Rating
+        btnRating=(FloatingActionButton)findViewById(R.id.btnRating);
+        ratingBar=(RatingBar)findViewById(R.id.ratingBar);
+
+        btnRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRatingDialog();
+            }
+        });
 
 
 
@@ -187,9 +239,65 @@ public class RestaurantDetail extends AppCompatActivity {
             getDetailRestaurant(RestaurantId);
             //getTimes(RestaurantId);
             currentRestId = RestaurantId;
+            
+            getRatingRestaurant(RestaurantId);
 
 
         }
+    }
+
+    private void getRatingRestaurant(String restaurantId) {
+
+        Query restaurantRating=ratingTbl.orderByChild("restaurantId").equalTo(restaurantId);
+
+        restaurantRating.addValueEventListener(new ValueEventListener() {
+
+            int count=0,sum=0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+
+                    Rating item =postSnapshot.getValue(Rating.class);
+                    sum+=Integer.parseInt(item.getRateValue());
+                    count++;
+                }
+                if(count !=0)
+                {
+                    float average= sum/count;
+                    ratingBar.setRating(average);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showRatingDialog() {
+
+        new AppRatingDialog.Builder()
+                .setPositiveButtonText("Submit")
+                .setNegativeButtonText("Cancel")
+                .setNoteDescriptions(Arrays.asList("Very Bad","Not Good","Ok","Very Good","Excellent"))
+                .setDefaultRating(1)
+                .setTitle("Rate this restaurant")
+                .setDescription("Please provide a rating")
+                .setTitleTextColor(R.color.colorPrimary)
+                .setDescriptionTextColor(R.color.colorPrimary)
+                .setHint("Please comment here...")
+                .setHintTextColor(R.color.colorAccent)
+                .setCommentTextColor(android.R.color.white)
+                .setCommentBackgroundColor(R.color.colorPrimaryDark)
+                .setWindowAnimation(R.style.RatingDialogFadeAnim)
+                .create(RestaurantDetail.this)
+                .show();
+
+
     }
 
     private void enterDetails() {
@@ -357,22 +465,17 @@ public class RestaurantDetail extends AppCompatActivity {
 
        // reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen);
 
+        FirebaseRecyclerOptions<ReservationSlot> options = new FirebaseRecyclerOptions.Builder<ReservationSlot>()
+                .setQuery(reservationSlot,ReservationSlot.class)
+                .build();
 
 
 
 
 
-        recyclerAdapter = new FirebaseRecyclerAdapter<ReservationSlot, TimeViewHolder>(ReservationSlot.class,
-                R.layout.timeslot_item,
-                TimeViewHolder.class,
-                //reservationSlot.orderByChild("restaurantId").equalTo(restaurantId)
-
-               // reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen)
-                //reservationSlot.orderByChild("time")
-                reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen)) {
+        recyclerAdapter = new FirebaseRecyclerAdapter<ReservationSlot, TimeViewHolder>(options) {
             @Override
-            protected void populateViewHolder(TimeViewHolder viewHolder, ReservationSlot model, int position) {
-
+            protected void onBindViewHolder(@NonNull TimeViewHolder viewHolder, int position, @NonNull ReservationSlot model) {
 
 
                 //peopleSelected=model;
@@ -382,36 +485,36 @@ public class RestaurantDetail extends AppCompatActivity {
                 //time=model.getTime();
 
 
-                    viewHolder.btnTime.setText("");
+                viewHolder.btnTime.setText("");
 
-                    if(peopleCount <= model.getNumberOfPeople()) {
-
-
+                if(peopleCount <= model.getNumberOfPeople()) {
 
 
 
 
-                        viewHolder.btnTime.setText(model.getTime());
-                        //viewHolder.btnTime.setVisibility(Button.VISIBLE);
 
 
-                    }
-                    else if(peopleCount > model.getNumberOfPeople()&viewHolder.btnTime.equals("")){
-
-                        //Toast.makeText(RestaurantDetail.this, "No times available" , Toast.LENGTH_SHORT).show();
-                        //viewHolder.btnTime.setText("");
-                        Toast.makeText(RestaurantDetail.this, "No times available" , Toast.LENGTH_SHORT).show();
-                        //viewHolder.btnTime.setVisibility(Button.GONE);
-                        viewHolder.llTime.setLayoutParams(viewHolder.params);
-
-                    }
-                    else if (peopleCount > model.getNumberOfPeople()){
-
-                        viewHolder.llTime.setLayoutParams(viewHolder.params);
-                       // viewHolder.btnTime.setVisibility(View.GONE);
+                    viewHolder.btnTime.setText(model.getTime());
+                    //viewHolder.btnTime.setVisibility(Button.VISIBLE);
 
 
-                    }
+                }
+                else if(peopleCount > model.getNumberOfPeople()&viewHolder.btnTime.equals("")){
+
+                    //Toast.makeText(RestaurantDetail.this, "No times available" , Toast.LENGTH_SHORT).show();
+                    //viewHolder.btnTime.setText("");
+                    Toast.makeText(RestaurantDetail.this, "No times available" , Toast.LENGTH_SHORT).show();
+                    //viewHolder.btnTime.setVisibility(Button.GONE);
+                    viewHolder.llTime.setLayoutParams(viewHolder.params);
+
+                }
+                else if (peopleCount > model.getNumberOfPeople()){
+
+                    viewHolder.llTime.setLayoutParams(viewHolder.params);
+                    // viewHolder.btnTime.setVisibility(View.GONE);
+
+
+                }
 
 
                 //viewHolder.btnTime.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
@@ -449,6 +552,17 @@ public class RestaurantDetail extends AppCompatActivity {
 
                 );
 
+
+
+            }
+
+            @NonNull
+            @Override
+            public TimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.timeslot_item,parent,false);
+                return new TimeViewHolder(itemView);
 
             }
         };
@@ -550,7 +664,7 @@ public class RestaurantDetail extends AppCompatActivity {
                 currentRestaurant = dataSnapshot.getValue(Restaurant.class);
 
                 //Set Image
-                Picasso.with(getBaseContext()).load(currentRestaurant.getImage()).into(restaurant_image);
+                Picasso.get().load(currentRestaurant.getImage()).into(restaurant_image);
 
                 collapsingToolbarLayout.setTitle(currentRestaurant.getName());
 
@@ -577,4 +691,65 @@ public class RestaurantDetail extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onNegativeButtonClicked() {
+
+    }
+
+    @Override
+    public void onNeutralButtonClicked() {
+
+    }
+
+    @Override
+    public void onPositiveButtonClicked(int value, @NotNull String comments) {
+
+
+       final Rating rating = new Rating(Common.currentUser.getPhoneNumber(),
+                currentRestId,
+                String.valueOf(value),
+                comments);
+
+       ratingTbl.push()
+               .setValue(rating)
+               .addOnCompleteListener(new OnCompleteListener<Void>() {
+                   @Override
+                   public void onComplete(@NonNull Task<Void> task) {
+
+                       Toast.makeText(RestaurantDetail.this, "Review submitted",Toast.LENGTH_SHORT).show();
+
+                   }
+               });
+
+       /*
+         ratingTbl.child(Common.currentUser.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                 if (dataSnapshot.child(Common.currentUser.getPhoneNumber()).exists()) {
+
+
+                     //Remove old value
+                     ratingTbl.child(Common.currentUser.getPhoneNumber()).removeValue();
+
+                     //Update new value
+                     ratingTbl.child(Common.currentUser.getPhoneNumber()).setValue(rating);
+                 }
+                 else {
+
+
+                     //Update new value
+                     ratingTbl.child(Common.currentUser.getPhoneNumber()).setValue(rating);
+                 }
+                 Toast.makeText(RestaurantDetail.this, "Review submitted",Toast.LENGTH_SHORT).show();
+             }
+
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+             }
+
+         });*/
+    }
 }

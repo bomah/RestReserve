@@ -40,7 +40,7 @@ to aid my understanding-->
     </android.support.design.widget.AppBarLayout>
 
 
-    <!-- android:srcCompat="@drawable/ic_add_black_24dp"-->
+    <!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnCart"
 
@@ -52,6 +52,23 @@ to aid my understanding-->
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
         app:useCompatPadding="true"
+        />
+
+        -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnRating"
+        android:src="@drawable/ic_star_black_24dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:useCompatPadding="true"
+
         />
 
     <android.support.v4.widget.NestedScrollView
@@ -76,6 +93,15 @@ to aid my understanding-->
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:rating="0"
+                        android:max="5"
+                        android:isIndicator="true"
+                        android:id="@+id/ratingBar"/>
 
                     <TextView
                         android:id="@+id/restaurant_name"
@@ -102,6 +128,8 @@ to aid my understanding-->
 
 
                 </LinearLayout>
+
+
 
             </android.support.v7.widget.CardView>
 
@@ -212,8 +240,16 @@ to aid my understanding-->
 
 
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnShowComment"
+                android:text="Show Comment"
+                />
 
         </LinearLayout>
+
+
 
     </android.support.v4.widget.NestedScrollView>
 

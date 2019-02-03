@@ -21,7 +21,9 @@
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RestaurantDetail"></activity>
+        <activity android:name=".RestaurantDetail" />
+        <activity android:name=".ReservationList" />
+        <activity android:name=".ShowComment"></activity>
     </application>
 
 </manifest>
