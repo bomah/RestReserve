@@ -1,12 +1,18 @@
 package com.fyp115494258.restreserve;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,9 +39,23 @@ import com.fyp115494258.restreserve.Model.Rating;
 import com.fyp115494258.restreserve.Model.Reservation;
 import com.fyp115494258.restreserve.Model.ReservationSlot;
 import com.fyp115494258.restreserve.Model.Restaurant;
+import com.fyp115494258.restreserve.Remote.IGoogleService;
 import com.fyp115494258.restreserve.ViewHolder.ReservationViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.TimeViewHolder;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -53,15 +73,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class RestaurantDetail extends AppCompatActivity implements RatingDialogListener {
+public class RestaurantDetail extends AppCompatActivity implements RatingDialogListener,OnMapReadyCallback {
 
     //Referred to the following video: https://www.youtube.com/watch?v=T19qTLVDFV0&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=4
 
-    TextView restaurant_name, restaurant_location, restaurant_description,restaurant_phoneNumber;
+    TextView restaurant_name, restaurant_address, restaurant_description,restaurant_phoneNumber;
     ImageView restaurant_image;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
-    ElegantNumberButton numberButton;
+    
 
 
     FirebaseDatabase database;
@@ -149,6 +169,30 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
     //Comments
     Button btnShowComment;
 
+    //Map
+    Button btnMap;
+
+
+    private GoogleMap mMap;
+
+    FusedLocationProviderClient fusedLocationProviderClient;
+    LocationCallback locationCallback;
+    LocationRequest locationRequest;
+
+
+    Location mLastLocation;
+
+    Marker mCurrentMarker;
+
+
+
+
+
+
+
+
+
+
 
 
     @Override
@@ -203,11 +247,16 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
         });
 
 
+        //Map
+        btnMap=(Button) findViewById(R.id.btnMap);
+
+
+
 
 
         restaurant_description = (TextView) findViewById(R.id.restaurant_description);
         restaurant_name = (TextView) findViewById(R.id.restaurant_name);
-        restaurant_location = (TextView) findViewById(R.id.restaurant_location);
+        restaurant_address = (TextView) findViewById(R.id.restaurant_address);
         restaurant_phoneNumber= (TextView) findViewById(R.id.restaurant_phoneNumber);
         restaurant_image = (ImageView) findViewById(R.id.img_restaurant);
 
@@ -231,6 +280,19 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Get food ID from Intent
         if(getIntent() != null)
             RestaurantId = getIntent().getStringExtra("RestaurantId");
@@ -239,12 +301,65 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
             getDetailRestaurant(RestaurantId);
             //getTimes(RestaurantId);
             currentRestId = RestaurantId;
+
+            Common.restId=RestaurantId;
             
             getRatingRestaurant(RestaurantId);
 
 
         }
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+
+
+        mMap = googleMap;
+
+
+        LatLng restaurantLocation = new LatLng(Common.currentRestaurant.getLat(),Common.currentRestaurant.getLng());
+
+
+
+        mMap.addMarker(new MarkerOptions().position(restaurantLocation)
+                .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(restaurantLocation));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+
+
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Intent restaurantLocation=new Intent(RestaurantDetail.this,RestaurantLocation.class);
+                startActivity(restaurantLocation);
+            }
+        });
+
+
+
+
+    }
+
+
+
+
 
     private void getRatingRestaurant(String restaurantId) {
 
@@ -663,12 +778,14 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
             public void onDataChange(DataSnapshot dataSnapshot){
                 currentRestaurant = dataSnapshot.getValue(Restaurant.class);
 
+                Common.currentRestaurant=currentRestaurant;
+
                 //Set Image
                 Picasso.get().load(currentRestaurant.getImage()).into(restaurant_image);
 
                 collapsingToolbarLayout.setTitle(currentRestaurant.getName());
 
-                restaurant_location.setText(currentRestaurant.getLocation());
+                restaurant_address.setText(currentRestaurant.getAddress());
 
                 restaurant_name.setText(currentRestaurant.getName());
 
@@ -676,7 +793,11 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
 
                 restaurant_phoneNumber.setText(currentRestaurant.getPhoneNumber());
 
-                Common.currentRestaurant=currentRestaurant;
+
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+                mapFragment.getMapAsync(RestaurantDetail.this);
+
 
 
 

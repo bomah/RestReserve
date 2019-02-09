@@ -32,6 +32,18 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/restaurant_distance"
+            android:text="Restaurant Distance"
+            android:textColor="@android:color/white"
+            android:background="#4f0e0d0e"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
 

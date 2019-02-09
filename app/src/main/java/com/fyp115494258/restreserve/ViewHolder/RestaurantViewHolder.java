@@ -17,6 +17,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     public TextView txtRestaurantName;
     public ImageView imageView;
 
+    public TextView txtRestaurantDistance;
+
     private ItemClickListener itemClickListener;
 
     public RestaurantViewHolder(@NonNull View itemView) {
@@ -24,6 +26,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
         txtRestaurantName=(TextView)itemView.findViewById(R.id.restaurant_name);
         imageView =(ImageView)itemView.findViewById(R.id.restaurant_image);
+
+        txtRestaurantDistance=(TextView)itemView.findViewById(R.id.restaurant_distance);
 
         itemView.setOnClickListener(this);
     }

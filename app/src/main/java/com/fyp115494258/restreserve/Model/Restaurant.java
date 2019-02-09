@@ -3,7 +3,9 @@ package com.fyp115494258.restreserve.Model;
 public class Restaurant {
 
     private String name;
-    private String location;
+    private String address;
+    private double lat;
+    private double lng;
     private String description;
     private String phoneNumber;
     private String image;
@@ -15,16 +17,20 @@ public class Restaurant {
 
     }
 
-    public Restaurant(String Name,String Location,String Description,String PhoneNumber,String Image,String AdminPhoneNumber){
+    public Restaurant(String Name,String Address,double Lat,double Lng,String Description,String PhoneNumber,String Image,String AdminPhoneNumber){
 
         setName(Name);
-        setLocation(Location);
+        setAddress(Address);
+        setLat(Lat);
+        setLng(Lng);
+
         setDescription(Description);
         setPhoneNumber(PhoneNumber);
         setImage(Image);
         setAdminPhoneNumber(AdminPhoneNumber);
 
     }
+
 
 
 
@@ -36,13 +42,7 @@ public class Restaurant {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
-    }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getDescription() {
         return description;
@@ -75,5 +75,30 @@ public class Restaurant {
 
     public void setAdminPhoneNumber(String adminPhoneNumber) {
         this.adminPhoneNumber = adminPhoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }

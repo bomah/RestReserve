@@ -1,12 +1,18 @@
 package com.fyp115494258.restreserve;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -26,6 +33,11 @@ import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
 import com.fyp115494258.restreserve.Model.Restaurant;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -47,7 +59,19 @@ public class Home extends AppCompatActivity
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Restaurant,RestaurantViewHolder> adapter;
+    FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder> adapter;
+
+
+    //Location
+    FusedLocationProviderClient fusedLocationProviderClient;
+    LocationCallback locationCallback;
+    LocationRequest locationRequest;
+
+    Location mLastLocation;
+
+    Location currentLocation, distanceLocation;
+    double distance = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +88,7 @@ public class Home extends AppCompatActivity
         //2nd iteration
         //Init Firebase
         database = FirebaseDatabase.getInstance();
-        restaurant=database.getReference("Restaurant");
-
-
-
-
+        restaurant = database.getReference("Restaurant");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -93,21 +113,123 @@ public class Home extends AppCompatActivity
         //2nd Iteration
         //Set Name for User
         View headerView = navigationView.getHeaderView(0);
-        txtFullName = (TextView)headerView.findViewById(R.id.txtFullName);
+        txtFullName = (TextView) headerView.findViewById(R.id.txtFullName);
         txtFullName.setText(Common.currentUser.getName());
 
         //load menu
         //Using Firebase UI to bind data from Firebase to Recycler View
-        recycler_menu=(RecyclerView)findViewById(R.id.recycler_menu);
+        recycler_menu = (RecyclerView) findViewById(R.id.recycler_menu);
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
-        loadRestaurant();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            }, Common.REQUEST_CODE);
+
+        } else {
+            //buildLocationRequest();
+            //buildLocationCallback();
+
+            locationRequest = LocationRequest.create();
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            locationRequest.setSmallestDisplacement(10f);
+            locationRequest.setInterval(5000);
+            locationRequest.setFastestInterval(3000);
+
+            locationCallback = new LocationCallback() {
+
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    mLastLocation = locationResult.getLastLocation();
+                    Toast.makeText(Home.this, new StringBuilder("")
+                            .append(mLastLocation.getLatitude())
+                            .append("/")
+                            .append(mLastLocation.getLongitude())
+                            .toString(), Toast.LENGTH_SHORT).show();
+
+                    loadRestaurant();
+                }
+            };
+
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+
+        }
+
 
 
 
     }
+
+    private void buildLocationCallback() {
+
+        locationCallback = new LocationCallback() {
+
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                mLastLocation = locationResult.getLastLocation();
+                Toast.makeText(Home.this, new StringBuilder("")
+                        .append(mLastLocation.getLatitude())
+                        .append("/")
+                        .append(mLastLocation.getLongitude())
+                        .toString(), Toast.LENGTH_SHORT).show();
+
+                loadRestaurant();
+            }
+        };
+    }
+
+    private void buildLocationRequest() {
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setSmallestDisplacement(10f);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(3000);
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        if (fusedLocationProviderClient != null)
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        super.onStop();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+        switch (requestCode) {
+            case Common.REQUEST_CODE: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    buildLocationRequest();
+                    buildLocationCallback();
+
+                    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+                }
+            }
+        }
+
+
+
+    }
+
+
+
+
+
+
 
     private void loadRestaurant() {
 
@@ -122,6 +244,50 @@ public class Home extends AppCompatActivity
 
                 viewHolder.txtRestaurantName.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(viewHolder.imageView);
+
+                //
+//https://stackoverflow.com/questions/8049612/calculating-distance-between-two-geographic-locations
+
+
+                currentLocation= new Location("");
+                currentLocation.setLatitude(mLastLocation.getLatitude());
+                currentLocation.setLongitude(mLastLocation.getLongitude());
+
+
+                distanceLocation = new Location("");
+                distanceLocation.setLatitude(model.getLat());
+                distanceLocation.setLongitude(model.getLng());
+
+                distance = currentLocation.distanceTo(distanceLocation)/1000;
+
+                viewHolder.txtRestaurantDistance.setText(String.format("%.2f",distance).concat(" km"));
+
+
+//https://stackoverflow.com/questions/14394366/find-distance-between-two-points-on-map-using-google-map-api-v2
+/*
+                int Radius = 6371;// radius of earth in Km
+                double lat1 = mLastLocation.getLatitude();
+                double lat2 = model.getLat();
+                double lon1 = mLastLocation.getLongitude();
+                double lon2 = model.getLng();
+                double dLat = Math.toRadians(lat2 - lat1);
+                double dLon = Math.toRadians(lon2 - lon1);
+                double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                        + Math.cos(Math.toRadians(lat1))
+                        * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                        * Math.sin(dLon / 2);
+                double c = 2 * Math.asin(Math.sqrt(a));
+                double valueResult = Radius * c;
+                double km = valueResult / 1;
+
+
+
+                viewHolder.txtRestaurantDistance.setText(String.valueOf(km));
+
+*/
+
+
+
 
 
                 final Restaurant clickItem=model;
