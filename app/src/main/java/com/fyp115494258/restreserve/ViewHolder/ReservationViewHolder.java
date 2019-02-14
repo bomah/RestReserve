@@ -10,7 +10,7 @@ import com.fyp115494258.restreserve.R;
 
 public class ReservationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtPersonName,txtDate,txtTime,txtNumberOfPeople;
+    public TextView txtRestaurantName,txtDate,txtTime,txtNumberOfPeople;
 
     private ItemClickListener itemClickListener;
 
@@ -18,7 +18,7 @@ public class ReservationViewHolder extends RecyclerView.ViewHolder implements Vi
     public ReservationViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        txtPersonName = itemView.findViewById(R.id.txtPersonName);
+        txtRestaurantName = itemView.findViewById(R.id.txtRestaurantName);
 
         txtDate = itemView.findViewById(R.id.txtDate);
         txtTime = itemView.findViewById(R.id.txtTime);

@@ -123,6 +123,10 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
+
+        //Referred to the following
+        //https://www.youtube.com/watch?v=m-_9YM_aHnM&index=58&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             requestPermissions(new String[]{
@@ -145,12 +149,12 @@ public class Home extends AppCompatActivity
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     mLastLocation = locationResult.getLastLocation();
-                    Toast.makeText(Home.this, new StringBuilder("")
+                  /*  Toast.makeText(Home.this, new StringBuilder("")
                             .append(mLastLocation.getLatitude())
                             .append("/")
                             .append(mLastLocation.getLongitude())
                             .toString(), Toast.LENGTH_SHORT).show();
-
+*/
                     loadRestaurant();
                 }
             };
@@ -245,7 +249,7 @@ public class Home extends AppCompatActivity
                 viewHolder.txtRestaurantName.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(viewHolder.imageView);
 
-                //
+                //referred to the following
 //https://stackoverflow.com/questions/8049612/calculating-distance-between-two-geographic-locations
 
 
@@ -299,6 +303,9 @@ public class Home extends AppCompatActivity
                                                         Intent restaurantDetail=new Intent(Home.this,RestaurantDetail.class);
                                                         restaurantDetail.putExtra("RestaurantId",adapter.getRef(position).getKey());
                                                         startActivity(restaurantDetail);
+
+                                                        //Intent restaurantDet=new Intent(Home.this,RestaurantDet.class);
+                                                       // startActivity(restaurantDet);
 
                                                     }
                                                 }

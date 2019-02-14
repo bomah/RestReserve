@@ -1,18 +1,12 @@
 package com.fyp115494258.restreserve;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,7 +24,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.fyp115494258.restreserve.Common.Common;
@@ -39,15 +32,11 @@ import com.fyp115494258.restreserve.Model.Rating;
 import com.fyp115494258.restreserve.Model.Reservation;
 import com.fyp115494258.restreserve.Model.ReservationSlot;
 import com.fyp115494258.restreserve.Model.Restaurant;
-import com.fyp115494258.restreserve.Remote.IGoogleService;
-import com.fyp115494258.restreserve.ViewHolder.ReservationViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.TimeViewHolder;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -247,8 +236,7 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
         });
 
 
-        //Map
-        btnMap=(Button) findViewById(R.id.btnMap);
+
 
 
 
@@ -360,6 +348,8 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
 
 
 
+    //Referred to the following
+    //https://www.youtube.com/watch?v=LxOMuzV3L20&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=20
 
     private void getRatingRestaurant(String restaurantId) {
 
@@ -398,7 +388,7 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
         new AppRatingDialog.Builder()
                 .setPositiveButtonText("Submit")
                 .setNegativeButtonText("Cancel")
-                .setNoteDescriptions(Arrays.asList("Very Bad","Not Good","Ok","Very Good","Excellent"))
+                .setNoteDescriptions(Arrays.asList("Not Great","Average","Ok","Very Good","Excellent"))
                 .setDefaultRating(1)
                 .setTitle("Rate this restaurant")
                 .setDescription("Please provide a rating")
@@ -580,8 +570,14 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
 
        // reservationSlot.orderByChild("dateRestaurantId").equalTo(dateChoosen);
 
+        Query getReservationByDate = reservationSlot.orderByChild("dateRestaurantId")
+                .equalTo(dateChoosen);
+
+
+
+
         FirebaseRecyclerOptions<ReservationSlot> options = new FirebaseRecyclerOptions.Builder<ReservationSlot>()
-                .setQuery(reservationSlot,ReservationSlot.class)
+                .setQuery(getReservationByDate,ReservationSlot.class)
                 .build();
 
 
@@ -681,6 +677,8 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
 
             }
         };
+
+        recyclerAdapter.startListening();
         //recyclerAdapter.notifyDataSetChanged();
         recycler_time.setAdapter(recyclerAdapter);
         //recyclerAdapter.notifyDataSetChanged();
@@ -826,7 +824,7 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
     public void onPositiveButtonClicked(int value, @NotNull String comments) {
 
 
-       final Rating rating = new Rating(Common.currentUser.getPhoneNumber(),
+       final Rating rating = new Rating(Common.currentUser.getName(),
                 currentRestId,
                 String.valueOf(value),
                 comments);
@@ -842,35 +840,6 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
                    }
                });
 
-       /*
-         ratingTbl.child(Common.currentUser.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
-             @Override
-             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                 if (dataSnapshot.child(Common.currentUser.getPhoneNumber()).exists()) {
-
-
-                     //Remove old value
-                     ratingTbl.child(Common.currentUser.getPhoneNumber()).removeValue();
-
-                     //Update new value
-                     ratingTbl.child(Common.currentUser.getPhoneNumber()).setValue(rating);
-                 }
-                 else {
-
-
-                     //Update new value
-                     ratingTbl.child(Common.currentUser.getPhoneNumber()).setValue(rating);
-                 }
-                 Toast.makeText(RestaurantDetail.this, "Review submitted",Toast.LENGTH_SHORT).show();
-             }
-
-
-             @Override
-             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-             }
-
-         });*/
     }
 }

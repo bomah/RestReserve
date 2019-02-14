@@ -71,7 +71,7 @@ public class ReservationList extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ReservationViewHolder viewHolder, int position, @NonNull Reservation model) {
 
-                viewHolder.txtPersonName.setText(model.getPersonName());
+                viewHolder.txtRestaurantName.setText(model.getRestaurantName());
 
                 viewHolder.txtDate.setText(model.getDate());
                 viewHolder.txtTime.setText(model.getTime());

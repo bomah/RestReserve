@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/txtPersonName"
+                android:id="@+id/txtRestaurantName"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|start"
                 android:textAllCaps="true"

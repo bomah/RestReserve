@@ -10,7 +10,7 @@ import com.fyp115494258.restreserve.R;
 
 public class ShowCommentViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView txtUserPhone,txtComment;
+    public TextView txtUserName,txtComment;
     public RatingBar ratingBar;
 
 
@@ -18,7 +18,7 @@ public class ShowCommentViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         txtComment=(TextView)itemView.findViewById(R.id.txtComment);
-        txtUserPhone=(TextView)itemView.findViewById(R.id.txtUserPhone);
+        txtUserName=(TextView)itemView.findViewById(R.id.txtUserName);
         ratingBar=(RatingBar) itemView.findViewById(R.id.ratingBar);
     }
 }

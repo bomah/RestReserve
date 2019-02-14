@@ -22,6 +22,9 @@ import com.google.firebase.database.Query;
 
 public class ShowComment extends AppCompatActivity {
 
+    //Referred to the following
+    //https://www.youtube.com/watch?v=7QuzhC_Cgho&index=40&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V
+
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
@@ -79,7 +82,7 @@ public class ShowComment extends AppCompatActivity {
 
                             holder.ratingBar.setRating(Float.parseFloat(model.getRateValue()));
                             holder.txtComment.setText(model.getComment());
-                            holder.txtUserPhone.setText(model.getUserPhone());
+                            holder.txtUserName.setText(model.getUserName());
                         }
 
                         @NonNull
@@ -128,7 +131,7 @@ public class ShowComment extends AppCompatActivity {
 
                             holder.ratingBar.setRating(Float.parseFloat(model.getRateValue()));
                             holder.txtComment.setText(model.getComment());
-                            holder.txtUserPhone.setText(model.getUserPhone());
+                            holder.txtUserName.setText(model.getUserName());
                         }
 
                         @NonNull

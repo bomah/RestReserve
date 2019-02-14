@@ -2,7 +2,7 @@ package com.fyp115494258.restreserve.Model;
 
 public class Rating {
 
-    private String userPhone;
+    private String userName;
     private String restaurantId;
     private String rateValue;
     private String comment;
@@ -11,22 +11,16 @@ public class Rating {
 
     }
 
-    public Rating(String UserPhone, String RestaurantId, String RateValue, String Comment){
+    public Rating(String UserName, String RestaurantId, String RateValue, String Comment){
 
-        this.setUserPhone(UserPhone);
+        this.setUserName(UserName);
         this.setRestaurantId(RestaurantId);
         this.setRateValue(RateValue);
         this.setComment(Comment);
     }
 
 
-    public String getUserPhone() {
-        return userPhone;
-    }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
 
     public String getRestaurantId() {
         return restaurantId;
@@ -50,5 +44,13 @@ public class Rating {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

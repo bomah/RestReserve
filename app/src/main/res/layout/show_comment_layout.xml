@@ -23,8 +23,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtUserPhone"
-                android:text="User Phone"
+                android:id="@+id/txtUserName"
+                android:text="User Name"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
