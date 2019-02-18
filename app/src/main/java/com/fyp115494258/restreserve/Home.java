@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,6 +41,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity
@@ -71,6 +73,12 @@ public class Home extends AppCompatActivity
 
     Location currentLocation, distanceLocation;
     double distance = 0;
+
+
+
+
+
+
 
 
     @Override
@@ -163,6 +171,8 @@ public class Home extends AppCompatActivity
             fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
 
         }
+
+
 
 
 
@@ -300,12 +310,45 @@ public class Home extends AppCompatActivity
                                                     public void onClick(View view, int position, boolean isLongClick) {
                                                         //Toast.makeText(Home.this, ""+clickItem.getName(),Toast.LENGTH_SHORT).show();
 
-                                                        Intent restaurantDetail=new Intent(Home.this,RestaurantDetail.class);
-                                                        restaurantDetail.putExtra("RestaurantId",adapter.getRef(position).getKey());
-                                                        startActivity(restaurantDetail);
+                                                       // Intent restaurantDetail=new Intent(Home.this,RestaurantDetail.class);
+                                                       //restaurantDetail.putExtra("RestaurantId",adapter.getRef(position).getKey());
+                                                        //startActivity(restaurantDetail);
 
-                                                        //Intent restaurantDet=new Intent(Home.this,RestaurantDet.class);
-                                                       // startActivity(restaurantDet);
+
+
+                                                        //TabsAdapter tabAdapter=new TabsAdapter(getSupportFragmentManager());
+
+                                                      // Bundle bundle=new Bundle();
+                                                      // bundle.putString("RestaurantId",adapter.getRef(position).getKey());
+
+                                                        //Tab1 tab1=new Tab1();
+                                                       // tab1.setArguments(bundle);
+
+                                                      // getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,tab1).commit();
+
+
+                                                       Intent restaurantDet =new Intent(Home.this,RestaurantDet.class);
+                                                        restaurantDet.putExtra("RestaurantId",adapter.getRef(position).getKey());
+                                                       startActivity(restaurantDet);
+
+
+
+
+/*
+                                                        Bundle bundle=new Bundle();
+                                                        bundle.putString("RestId",adapter.getRef(position).getKey());
+
+
+                                                        Tab1 tab1=new Tab1();
+                                                        tab1.setArguments(bundle);
+
+
+                                                        getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,tab1).commit();
+
+*/
+
+
+
 
                                                     }
                                                 }

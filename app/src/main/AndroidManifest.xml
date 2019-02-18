@@ -47,7 +47,7 @@
         <activity
             android:name=".RestaurantLocation"
             android:label="@string/title_activity_restaurant_location" />
-        <activity android:name=".RestaurantDet"></activity>
+        <activity android:name=".RestaurantDet" />
     </application>
 
 </manifest>

@@ -68,7 +68,6 @@ limitations under the License.*/
 
     implementation 'com.stepstone.apprating:app-rating:2.3.0'
 
-
     //map
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'

@@ -17,6 +17,8 @@
 
     <color name="white">#FFFFFF</color>
 
+    <color name="gold">#FFD700</color>
+
     <!--2nd iteration-->
 
     <color name="overlayBackground">#7f333639</color>
