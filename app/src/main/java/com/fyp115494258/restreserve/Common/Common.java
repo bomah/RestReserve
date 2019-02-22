@@ -18,6 +18,9 @@ public class Common {
 
     public static final String INTENT_RESTAURANT_ID="RestaurantId";
 
+    public static final String UPDATE = "Update";
+    public static final String DELETE= "Delete";
+
     public static void updateLocation(String restId, Location mLastLocation) {
 
 

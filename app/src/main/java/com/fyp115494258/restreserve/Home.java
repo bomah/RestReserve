@@ -39,6 +39,8 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Transaction;
@@ -76,6 +78,9 @@ public class Home extends AppCompatActivity
 
 
 
+    FirebaseAuth mAuth;
+
+
 
 
 
@@ -85,6 +90,9 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        mAuth=FirebaseAuth.getInstance();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,7 +130,7 @@ public class Home extends AppCompatActivity
         //Set Name for User
         View headerView = navigationView.getHeaderView(0);
         txtFullName = (TextView) headerView.findViewById(R.id.txtFullName);
-        txtFullName.setText(Common.currentUser.getName());
+        txtFullName.setText(Common.currentUser.getFirstName());
 
         //load menu
         //Using Firebase UI to bind data from Firebase to Recycler View
@@ -176,6 +184,25 @@ public class Home extends AppCompatActivity
 
 
 
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+
+
+    private void SendUserToLogIn() {
+
+        Intent logInIntent = new Intent(Home.this,LogIn.class);
+        logInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(logInIntent);
+        finish();
 
     }
 
@@ -427,11 +454,9 @@ public class Home extends AppCompatActivity
 
         }
         else if (id == R.id.nav_logout) {
-            Intent signIn =new Intent(Home.this,SignIn.class);
 
-            //signIn.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            signIn.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(signIn);
+            mAuth.signOut();
+            SendUserToLogIn();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

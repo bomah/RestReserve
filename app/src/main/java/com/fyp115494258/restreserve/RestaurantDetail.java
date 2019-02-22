@@ -713,7 +713,7 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
         txtReservationSlotKey= make_reservation_layout.findViewById(R.id.txtReservationSlotKey);
 
         txtRestaurantName.setText(currentRestaurant.getName());
-        txtPersonName.setText(Common.currentUser.getName());
+        txtPersonName.setText(Common.currentUser.getFirstName());
 
         txtDate.setText(dateSelected);
         txtTime.setText(time);
@@ -824,7 +824,7 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
     public void onPositiveButtonClicked(int value, @NotNull String comments) {
 
 
-       final Rating rating = new Rating(Common.currentUser.getName(),
+       final Rating rating = new Rating(Common.currentUser.getFirstName(),
                 currentRestId,
                 String.valueOf(value),
                 comments);

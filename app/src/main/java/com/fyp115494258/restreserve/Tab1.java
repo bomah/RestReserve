@@ -696,7 +696,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
         txtReservationSlotKey= make_reservation_layout.findViewById(R.id.txtReservationSlotKey);
 
         txtRestaurantName.setText(currentRestaurant.getName());
-        txtPersonName.setText(Common.currentUser.getName());
+        txtPersonName.setText(Common.currentUser.getFirstName());
 
         txtDate.setText(dateSelected);
         txtTime.setText(time);
