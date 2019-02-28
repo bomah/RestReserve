@@ -1,18 +1,15 @@
 package com.fyp115494258.restreserve;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
-public class TabsAdapter extends FragmentStatePagerAdapter {
+public class RestaurantAdminTabsAdapter extends FragmentStatePagerAdapter {
 
-    //int mNoOfTabs;
 
     int mCurrentPosition=-1;
 
-    public TabsAdapter(FragmentManager fm)
+    public RestaurantAdminTabsAdapter(FragmentManager fm)
     {
         super(fm);
         //this.mNoOfTabs=NumberOfTabs;
@@ -44,7 +41,7 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
 
                 return tab1;
             case 1:
-                Tab2 tab2 =new Tab2();
+                RestaurantAdminTab2 tab2 =new RestaurantAdminTab2();
                 return tab2;
             case 2:
                 Tab3 tab3 = new Tab3();
@@ -84,4 +81,3 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
 
     }
 }
-

@@ -149,7 +149,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
     //Rating
     FloatingActionButton btnRating;
-    RatingBar ratingBar;
+   RatingBar ratingBar;
 
     DatabaseReference ratingTbl;
 
@@ -177,7 +177,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
     View Tab1View;
 
-    TextView rdescription;
+
 
 
 
@@ -249,7 +249,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-
+/*
         btnRating=(FloatingActionButton)Tab1View.findViewById(R.id.btnRating);
 
 
@@ -259,6 +259,8 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 showRatingDialog();
             }
         });
+
+*/
 
 
 
@@ -275,7 +277,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
         restaurant_phoneNumber= (TextView) Tab1View.findViewById(R.id.restaurant_phoneNumber);
 
 
-        rdescription = (TextView) Tab1View.findViewById(R.id.rdescription);
+
 
 
 
@@ -358,7 +360,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-
+/*
     private void showRatingDialog() {
 
         new AppRatingDialog.Builder()
@@ -380,6 +382,8 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
     }
+*/
+
 
 
     private void enterDetails() {
@@ -511,7 +515,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 //getTimes(dateChoosen);
 
 
-                rdescription.setText(dateChoosen);
+
 
                 getTimes(dateChoosen,peopleCount);
 
@@ -705,7 +709,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),txtPersonName.getText().toString(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminPhoneNumber(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
+        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),txtPersonName.getText().toString(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
 
 
         alertDialog.setView(make_reservation_layout);

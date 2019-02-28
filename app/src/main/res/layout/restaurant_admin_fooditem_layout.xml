@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal"
+
+
+    >
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="9dp"
+        android:id="@+id/txtFoodName"
+        android:text="Food Name"
+        android:textSize="20sp"
+
+        android:textStyle="bold"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPrice"
+        android:text="Price"
+        android:textSize="16sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="9dp"
+        android:textStyle="bold"/>
+
+
+    <ImageButton
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_more_vert_black_24dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/btnOptions"
+
+
+        android:layout_marginTop="9dp"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

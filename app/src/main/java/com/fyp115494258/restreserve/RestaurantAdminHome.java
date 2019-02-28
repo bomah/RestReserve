@@ -72,7 +72,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
     //Server side
-    EditText edtName,edtDescription,edtPhoneNumber,edtAdminPhoneNumber;
+    EditText edtName,edtDescription,edtPhoneNumber,edtAdminEmail;
 
     Button btnUpload,btnSelect;
 
@@ -87,7 +87,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
-    String adminPhoneNo = "";
+    String adminEmail = "";
 
 
     FirebaseAuth mAuth;
@@ -150,9 +150,9 @@ public class RestaurantAdminHome extends AppCompatActivity
         //Get Intent here
 
         if (getIntent() != null)
-            adminPhoneNo = getIntent().getStringExtra("AdminPhoneNo");
-        if (!adminPhoneNo.isEmpty() && adminPhoneNo != null) {
-            getRestaurant(adminPhoneNo);
+            adminEmail = getIntent().getStringExtra("AdminEmail");
+        if (!adminEmail.isEmpty() && adminEmail != null) {
+            getRestaurant(adminEmail);
         }
 
 
@@ -207,10 +207,10 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
-    private void getRestaurant(String adminPhoneNo) {
+    private void getRestaurant(String adminEmail) {
 
-        Query getRestaurant = restaurant.orderByChild("adminPhoneNumber")
-                .equalTo(adminPhoneNo);
+        Query getRestaurant = restaurant.orderByChild("adminEmail")
+                .equalTo(adminEmail);
 
 
 
@@ -252,7 +252,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
-                                                        Intent restaurantDetail = new Intent(RestaurantAdminHome.this, RestaurantAdminRestaurantDetail.class);
+                                                        Intent restaurantDetail = new Intent(RestaurantAdminHome.this, RestaurantAdminRestaurantDet.class);
                                                         restaurantDetail.putExtra("RestaurantId", adapter.getRef(position).getKey());
                                                         startActivity(restaurantDetail);
 
@@ -330,8 +330,10 @@ public class RestaurantAdminHome extends AppCompatActivity
 
         else if (id == R.id.nav_logout) {
 
-            mAuth.signOut();
+
             SendUserToLogIn();
+
+            mAuth.signOut();
 
 
         }
@@ -373,14 +375,14 @@ public class RestaurantAdminHome extends AppCompatActivity
 
         edtPhoneNumber= add_restaurant_layout.findViewById(R.id.edtPhoneNumber);
         //
-        edtAdminPhoneNumber= add_restaurant_layout.findViewById(R.id.edtAdminPhoneNumber);
+        edtAdminEmail= add_restaurant_layout.findViewById(R.id.edtAdminEmail);
         btnSelect = add_restaurant_layout.findViewById(R.id.btnSelect);
         btnUpload = add_restaurant_layout.findViewById(R.id.btnUpload);
 
 
         //set default name
         edtName.setText(item.getName());
-        edtAdminPhoneNumber.setText(item.getAdminPhoneNumber());
+        edtAdminEmail.setText(item.getAdminEmail());
 
 
         edtPhoneNumber.setText(item.getPhoneNumber());
@@ -423,7 +425,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
                 item.setDescription(edtDescription.getText().toString());
                 item.setPhoneNumber(edtPhoneNumber.getText().toString());
-                item.setAdminPhoneNumber(edtAdminPhoneNumber.getText().toString());
+                item.setAdminEmail(edtAdminEmail.getText().toString());
                 restaurant.child(key).setValue(item);
 
 

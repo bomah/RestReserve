@@ -4,13 +4,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
-
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -35,8 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-
-public class RestaurantDet extends AppCompatActivity implements RatingDialogListener {
+public class RestaurantAdminRestaurantDet extends AppCompatActivity implements RatingDialogListener {
 
     FirebaseDatabase database;
     DatabaseReference restaurant;
@@ -44,9 +40,8 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
     Restaurant currentRestaurant;
 
 
-
     ViewPager viewPager;
-    TabsAdapter adapter;
+    RestaurantAdminTabsAdapter adapter;
 
     TabLayout tabLayout;
 
@@ -59,32 +54,22 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
 
     Toolbar tBar;
 
-    String RestaurantId="";
+    String RestaurantId = "";
 
 
     DatabaseReference ratingTbl;
 
 
-
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_det);
+        setContentView(R.layout.activity_restaurant_admin_restaurant_det);
 
 
-        if(getIntent() != null)
+        if (getIntent() != null)
             RestaurantId = getIntent().getStringExtra("RestaurantId");
 
-        Common.restId=RestaurantId;
-
+        Common.restId = RestaurantId;
 
 
         //NestedScrollView scrollView=(NestedScrollView)findViewById(R.id.nestedScrollView);
@@ -95,51 +80,37 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
         database = FirebaseDatabase.getInstance();
         restaurant = database.getReference("Restaurant");
 
-        ratingTbl=database.getReference("Rating");
+        ratingTbl = database.getReference("Rating");
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new TabsAdapter(getSupportFragmentManager());
+        adapter = new RestaurantAdminTabsAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-
-
-
-
 
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
 
-
         tabLayout.setupWithViewPager(viewPager);
-
-
-
-
 
 
         restaurant_image = (ImageView) findViewById(R.id.img_restaurant);
 
-        ratingBar=(RatingBar)findViewById(R.id.ratingBar);
-
-
-
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 
-        
 
         //collapsingToolbarLayout.setTitle("Title");
 
-        tBar=(Toolbar) findViewById(R.id.tBar);
+        tBar = (Toolbar) findViewById(R.id.tBar);
         //setSupportActionBar(tBar);
-       // getSupportActionBar().setTitle("Title");
+        // getSupportActionBar().setTitle("Title");
 
 
-
-        btnRating=(FloatingActionButton)findViewById(R.id.btnRating);
+        btnRating = (FloatingActionButton) findViewById(R.id.btnRating);
 
 
         btnRating.setOnClickListener(new View.OnClickListener() {
@@ -150,21 +121,11 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
         });
 
 
-
-
-
-
-
-
         //Bundle bundle = getIntent().getExtras();
 
 
-
-
-        if(!RestaurantId.isEmpty()){
+        if (!RestaurantId.isEmpty()) {
             //getTimes(RestaurantId);
-
-
 
 
             getDetailRestaurant(RestaurantId);
@@ -172,14 +133,7 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
             getRatingRestaurant(RestaurantId);
 
 
-
         }
-
-
-
-
-
-
 
 
     }
@@ -190,23 +144,23 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
 
     private void getRatingRestaurant(String restaurantId) {
 
-        Query restaurantRating=ratingTbl.orderByChild("restaurantId").equalTo(restaurantId);
+        Query restaurantRating = ratingTbl.orderByChild("restaurantId").equalTo(restaurantId);
 
         restaurantRating.addValueEventListener(new ValueEventListener() {
 
-            int count=0,sum=0;
+            int count = 0, sum = 0;
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    Rating item =postSnapshot.getValue(Rating.class);
-                    sum+=Integer.parseInt(item.getRateValue());
+                    Rating item = postSnapshot.getValue(Rating.class);
+                    sum += Integer.parseInt(item.getRateValue());
                     count++;
                 }
-                if(count !=0)
-                {
-                    float average= sum/count;
+                if (count != 0) {
+                    float average = sum / count;
                     ratingBar.setRating(average);
                 }
 
@@ -221,13 +175,12 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
     }
 
 
-
     private void showRatingDialog() {
 
         new AppRatingDialog.Builder()
                 .setPositiveButtonText("Submit")
                 .setNegativeButtonText("Cancel")
-                .setNoteDescriptions(Arrays.asList("Not Great","Average","Ok","Very Good","Excellent"))
+                .setNoteDescriptions(Arrays.asList("Not Great", "Average", "Ok", "Very Good", "Excellent"))
                 .setDefaultRating(1)
                 .setTitle("Rate this restaurant")
                 .setDescription("Please provide a rating")
@@ -238,7 +191,7 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
                 .setCommentTextColor(android.R.color.white)
                 .setCommentBackgroundColor(R.color.colorPrimaryDark)
                 .setWindowAnimation(R.style.RatingDialogFadeAnim)
-                .create(RestaurantDet.this)
+                .create(RestaurantAdminRestaurantDet.this)
                 .show();
 
 
@@ -271,7 +224,7 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
-                        Toast.makeText(RestaurantDet.this, "Review submitted",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RestaurantAdminRestaurantDet.this, "Review submitted", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -280,18 +233,16 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
     }
 
 
-
-
     private void getDetailRestaurant(String restaurantId) {
 
-       // restaurant.child(restaurantId).addValueEventListener(new ValueEventListener(){
+        // restaurant.child(restaurantId).addValueEventListener(new ValueEventListener(){
 
         restaurant.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 currentRestaurant = dataSnapshot.getValue(Restaurant.class);
 
-                Common.currentRestaurant=currentRestaurant;
+                Common.currentRestaurant = currentRestaurant;
 
                 //Set Image
                 Picasso.get().load(currentRestaurant.getImage()).into(restaurant_image);
@@ -310,7 +261,7 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
 
     }
 
-
 }
+
 
 

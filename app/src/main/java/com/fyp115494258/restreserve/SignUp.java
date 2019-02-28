@@ -147,15 +147,9 @@ public class SignUp extends AppCompatActivity {
                             if(task.isSuccessful())
                             {
 
-                                String currentUserId=mAuth.getCurrentUser().getUid();
+                                SendEmailVerificationMessage();
 
 
-                                User user =new User(currentUserId,edtFirstName.getText().toString(),edtLastName.getText().toString(),edtPhoneNumber.getText().toString(),edtEmail.getText().toString(),edtPassword.getText().toString());
-                                table_user.child(currentUserId).setValue(user);
-
-                                 SendUserToLogIn();
-
-                                Toast.makeText(SignUp.this, "Account Created", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                             else
@@ -172,11 +166,62 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+
+    private void SendEmailVerificationMessage(){
+
+        FirebaseUser fUser=mAuth.getCurrentUser();
+
+        if(fUser != null)
+        {
+            fUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if(task.isSuccessful())
+                    {
+
+
+
+
+
+
+
+
+
+
+                        SendUserToLogIn();
+
+                        mAuth.signOut();
+
+                    }
+                    else
+                    {
+                        String error=task.getException().getMessage();
+                        Toast.makeText(SignUp.this,"Error: " + error, Toast.LENGTH_SHORT).show();
+
+                        mAuth.signOut();
+                    }
+                }
+            });
+        }
+    }
+
     private void SendUserToLogIn() {
+
+
 
         Intent logInIntent = new Intent(SignUp.this,LogIn.class);
         logInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(logInIntent);
         finish();
+
+        String currentUserId=mAuth.getCurrentUser().getUid();
+
+
+        User user =new User(currentUserId,edtFirstName.getText().toString(),edtLastName.getText().toString(),edtPhoneNumber.getText().toString(),edtEmail.getText().toString(),edtPassword.getText().toString());
+        table_user.child(currentUserId).setValue(user);
+
+        Toast.makeText(SignUp.this,"Registration Successful", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SignUp.this,"Please verify your account with email", Toast.LENGTH_SHORT).show();
     }
 }

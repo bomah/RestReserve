@@ -71,7 +71,7 @@ public class AdminHome extends AppCompatActivity
 
 
     //Server side
-    EditText edtName,edtDescription,edtAddress,edtLat,edtLng,edtPhoneNumber,edtAdminPhoneNumber;
+    EditText edtName,edtDescription,edtAddress,edtLat,edtLng,edtPhoneNumber,edtAdminEmail;
 
     Button btnUpload,btnSelect;
 
@@ -197,7 +197,7 @@ public class AdminHome extends AppCompatActivity
 
 
         //
-        edtAdminPhoneNumber= add_restaurant_layout.findViewById(R.id.edtAdminPhoneNumber);
+        edtAdminEmail= add_restaurant_layout.findViewById(R.id.edtAdminEmail);
         btnSelect = add_restaurant_layout.findViewById(R.id.btnSelect);
         btnUpload = add_restaurant_layout.findViewById(R.id.btnUpload);
 
@@ -280,7 +280,7 @@ public class AdminHome extends AppCompatActivity
                                     Lat=Double.parseDouble(edtLat.getText().toString());
                                     Lng=Double.parseDouble(edtLng.getText().toString());
 
-                                    newRestaurant = new Restaurant(edtName.getText().toString(),edtAddress.getText().toString(),Lat,Lng,edtDescription.getText().toString(),edtPhoneNumber.getText().toString(), uri.toString(), edtAdminPhoneNumber.getText().toString());
+                                    newRestaurant = new Restaurant(edtName.getText().toString(),edtAddress.getText().toString(),Lat,Lng,edtDescription.getText().toString(),edtPhoneNumber.getText().toString(), uri.toString(), edtAdminEmail.getText().toString());
 
                                 }
                             });
@@ -438,8 +438,10 @@ public class AdminHome extends AppCompatActivity
             return true;
         } else if (id == R.id.nav_logout) {
 
-            mAuth.signOut();
+
             SendUserToLogIn();
+
+            mAuth.signOut();
 
         }
 
@@ -496,14 +498,14 @@ public class AdminHome extends AppCompatActivity
         edtLng = add_restaurant_layout.findViewById(R.id.edtLng);
         edtPhoneNumber= add_restaurant_layout.findViewById(R.id.edtPhoneNumber);
         //
-        edtAdminPhoneNumber= add_restaurant_layout.findViewById(R.id.edtAdminPhoneNumber);
+        edtAdminEmail= add_restaurant_layout.findViewById(R.id.edtAdminEmail);
         btnSelect = add_restaurant_layout.findViewById(R.id.btnSelect);
         btnUpload = add_restaurant_layout.findViewById(R.id.btnUpload);
 
 
         //set default name
         edtName.setText(item.getName());
-        edtAdminPhoneNumber.setText(item.getAdminPhoneNumber());
+        edtAdminEmail.setText(item.getAdminEmail());
 
         edtAddress.setText(item.getAddress());
         edtLat.setText(String.valueOf(item.getLat()));
@@ -564,7 +566,7 @@ public class AdminHome extends AppCompatActivity
                 item.setLng(longitude);
                 item.setDescription(edtDescription.getText().toString());
                 item.setPhoneNumber(edtPhoneNumber.getText().toString());
-                item.setAdminPhoneNumber(edtAdminPhoneNumber.getText().toString());
+                item.setAdminEmail(edtAdminEmail.getText().toString());
                 restaurant.child(key).setValue(item);
 
 

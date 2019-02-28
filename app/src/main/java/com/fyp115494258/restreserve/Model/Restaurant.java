@@ -9,7 +9,7 @@ public class Restaurant {
     private String description;
     private String phoneNumber;
     private String image;
-    private String adminPhoneNumber;
+    private String adminEmail;
 
 
 
@@ -17,7 +17,7 @@ public class Restaurant {
 
     }
 
-    public Restaurant(String Name,String Address,double Lat,double Lng,String Description,String PhoneNumber,String Image,String AdminPhoneNumber){
+    public Restaurant(String Name,String Address,double Lat,double Lng,String Description,String PhoneNumber,String Image,String AdminEmail){
 
         setName(Name);
         setAddress(Address);
@@ -27,7 +27,7 @@ public class Restaurant {
         setDescription(Description);
         setPhoneNumber(PhoneNumber);
         setImage(Image);
-        setAdminPhoneNumber(AdminPhoneNumber);
+        setAdminEmail(AdminEmail);
 
     }
 
@@ -69,13 +69,7 @@ public class Restaurant {
     }
 
 
-    public String getAdminPhoneNumber() {
-        return adminPhoneNumber;
-    }
 
-    public void setAdminPhoneNumber(String adminPhoneNumber) {
-        this.adminPhoneNumber = adminPhoneNumber;
-    }
 
     public String getAddress() {
         return address;
@@ -100,5 +94,13 @@ public class Restaurant {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getAdminEmail() {
+        return adminEmail;
+    }
+
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
     }
 }

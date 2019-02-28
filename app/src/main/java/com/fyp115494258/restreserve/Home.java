@@ -455,8 +455,9 @@ public class Home extends AppCompatActivity
         }
         else if (id == R.id.nav_logout) {
 
-            mAuth.signOut();
+
             SendUserToLogIn();
+            mAuth.signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

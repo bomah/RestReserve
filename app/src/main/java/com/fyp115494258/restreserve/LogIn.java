@@ -51,6 +51,8 @@ public class LogIn extends AppCompatActivity {
 
     User user;
 
+    Boolean emailAddressChecker;
+
 
 
 
@@ -62,6 +64,8 @@ public class LogIn extends AppCompatActivity {
 
 
         mAuth=FirebaseAuth.getInstance();
+
+
 
         database=FirebaseDatabase.getInstance();
 
@@ -131,94 +135,14 @@ public class LogIn extends AppCompatActivity {
                             if(task.isSuccessful())
                             {
 
-
-                                currentUser=mAuth.getCurrentUser().getUid();
-
-                                table_user.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                        if (dataSnapshot.child(currentUser).exists() ){
+                                VerifyEmailAddress();
 
 
-
-
-                                            user = dataSnapshot.child(currentUser).getValue(User.class);
-
-
-                                            Query userView= restaurant.orderByChild("adminPhoneNumber").equalTo(user.getPhoneNumber());
-
-                                            userView.addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                    if(dataSnapshot.exists()){
-                                                        Intent hIntent= new Intent(LogIn.this,RestaurantAdminHome.class);
-
-                                                        hIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                                        hIntent.putExtra("AdminPhoneNo",user.getPhoneNumber());
-
-                                                        //creating variable to store current user
-                                                        Common.currentUser = user;
-                                                        startActivity(hIntent);
-                                                        finish();
-
-                                                    }
-
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                }
-                                            });
-
-
-
-                                            if(user.getPhoneNumber().equals("0860377975")) {
-
-                                                Intent hintent = new Intent(LogIn.this, AdminHome.class);
-
-                                                hintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                                //creating variable to store current user
-                                                Common.currentUser = user;
-                                                startActivity(hintent);
-                                                finish();
-
-
-                                            }
-                                            else{
-
-                                                Intent homeIntent = new Intent(LogIn.this, Home.class);
-                                                homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                                //creating variable to store current user
-                                                Common.currentUser = user;
-                                                startActivity(homeIntent);
-                                                finish();
-                                            }
-
-
-
-
-                                        }
-                                    }
-
-
-
-
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
 
 
                                 //SendUserToHomeActivity();
 
-                                Toast.makeText(LogIn.this, "Logged In Successfully.", Toast.LENGTH_SHORT).show();
+
                                 loadingBar.dismiss();
                             }
                             else
@@ -236,16 +160,112 @@ public class LogIn extends AppCompatActivity {
 
     }
 
+    private void VerifyEmailAddress(){
+
+        FirebaseUser fUser=mAuth.getCurrentUser();
+        emailAddressChecker=fUser.isEmailVerified();
+
+        if(emailAddressChecker){
+
+            SendUserToHomeActivity();
+
+
+
+        }
+        else
+        {
+            Toast.makeText(this,"Please verify account with email",Toast.LENGTH_SHORT).show();
+            mAuth.signOut();
+        }
+    }
+
     private void SendUserToHomeActivity() {
 
 
 
 
+        currentUser=mAuth.getCurrentUser().getUid();
 
-        Intent mainIntent = new Intent(LogIn.this, Home.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
-        finish();
+        table_user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.child(currentUser).exists() ){
+
+
+
+
+                    user = dataSnapshot.child(currentUser).getValue(User.class);
+
+
+                    Query userView= restaurant.orderByChild("adminEmail").equalTo(user.getEmail());
+
+                    userView.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                Intent hIntent= new Intent(LogIn.this,RestaurantAdminHome.class);
+
+                                hIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                hIntent.putExtra("AdminEmail",user.getEmail());
+
+                                //creating variable to store current user
+                                Common.currentUser = user;
+                                startActivity(hIntent);
+                                finish();
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+                    if(user.getPhoneNumber().equals("0860377975")) {
+
+                        Intent hintent = new Intent(LogIn.this, AdminHome.class);
+
+                        hintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        //creating variable to store current user
+                        Common.currentUser = user;
+                        startActivity(hintent);
+                        finish();
+
+
+                    }
+                    else{
+
+                        Intent homeIntent = new Intent(LogIn.this, Home.class);
+                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        //creating variable to store current user
+                        Common.currentUser = user;
+                        startActivity(homeIntent);
+                        finish();
+                    }
+
+
+
+
+                }
+            }
+
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

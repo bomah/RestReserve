@@ -123,16 +123,16 @@
 
         <EditText
 
-            android:id="@+id/edtAdminPhoneNumber"
-            android:hint="Admin Phone Number"
+            android:id="@+id/edtAdminEmail"
+            android:hint="Admin Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+
 
             android:text=""
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
 
 
 

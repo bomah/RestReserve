@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardElevation="4dp">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+
+                android:id="@+id/edtAddFoodName"
+                android:hint="Food Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text=""
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:inputType="text"
+
+
+
+
+                />
+
+            <EditText
+
+                android:id="@+id/edtAddPrice"
+                android:hint="Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text=""
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:inputType="text"
+
+
+
+
+                />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.v7.widget.CardView>

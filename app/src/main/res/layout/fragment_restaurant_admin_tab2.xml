@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:fillViewport="true"
+
+
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <RelativeLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/relTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Menu"
+
+                />
+
+
+
+            <ImageButton
+                android:id="@+id/btnAddStarter"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_add_black_24dp"
+                android:layout_alignParentRight="true"/>
+
+
+
+
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerStarters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relTop"
+
+            ></android.support.v7.widget.RecyclerView>
+
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider"
+            android:layout_below="@id/recyclerStarters">
+
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/relMiddle"
+            android:layout_below="@id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Main Course"
+
+                />
+
+
+
+            <ImageButton
+                android:id="@+id/btnAddMainCourse"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:layout_alignParentRight="true"/>
+
+
+
+        </RelativeLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerMainCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relMiddle"
+            ></android.support.v7.widget.RecyclerView>
+
+
+
+        </RelativeLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

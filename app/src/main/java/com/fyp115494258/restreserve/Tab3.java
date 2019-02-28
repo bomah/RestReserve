@@ -68,7 +68,7 @@ public class Tab3 extends Fragment {
 
         recyclerView=(RecyclerView)Tab3View.findViewById(R.id.recyclerComment);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
 
