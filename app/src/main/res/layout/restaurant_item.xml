@@ -5,7 +5,7 @@
 
 
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     app:cardElevation="4dp">
 
 
@@ -14,32 +14,74 @@
         android:layout_height="match_parent">
 
 
+        <TextView
+            android:id="@+id/txtRestDummy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            />
+
+
         <ImageView
             android:id="@+id/restaurant_image"
             android:background="@drawable/background"
             android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentLeft="true"/>
 
 
         <TextView
             android:id="@+id/restaurant_name"
             android:text="Name of Restaurant"
-            android:textColor="@android:color/white"
-            android:background="#4f0e0d0e"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp"
+
             android:textSize="20sp"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/txtRestDummy"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rating="0"
+            android:max="5"
+            android:isIndicator="true"
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+
+            android:layout_toRightOf="@id/txtRestDummy"
+            android:layout_below="@id/restaurant_name"
+
+
+            android:theme="@style/RatingBar"
+
+            />
+
+        <ImageView
+            android:id="@+id/imgLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_location_on_black_24dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_below="@id/ratingBar"
+            android:layout_toRightOf="@id/txtRestDummy"/>
 
         <TextView
             android:id="@+id/restaurant_distance"
             android:text="Restaurant Distance"
-            android:textColor="@android:color/white"
-            android:background="#4f0e0d0e"
-            android:textSize="20sp"
-            android:gravity="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/imgLocation"
+            android:layout_below="@id/ratingBar"
             android:layout_alignParentRight="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

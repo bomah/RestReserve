@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ratingBar"
                 style="?android:attr/ratingBarStyleSmall"
-                android:rating="3"/>
+                android:rating="3"
+                android:theme="@style/ratingBar"/>
 
         </LinearLayout>
 

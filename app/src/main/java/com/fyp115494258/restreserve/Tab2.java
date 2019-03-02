@@ -58,15 +58,6 @@ public class Tab2 extends Fragment {
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mainCourseAdapter != null)
-            mainCourseAdapter.stopListening();
-
-        if(startersAdapter != null)
-            startersAdapter.stopListening();
-    }
 
 
 

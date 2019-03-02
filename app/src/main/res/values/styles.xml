@@ -38,7 +38,20 @@
 
 
 
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
 
+        <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="PositiveButtonStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 
 
 
@@ -56,6 +69,40 @@
     </style>
 
 
+
+    <style name="ratingBar" parent="Theme.AppCompat">
+
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="floatingBar" parent="Theme.AppCompat">
+
+        <item name="colorAccent">@color/colorPrimary</item>
+
+    </style>
+
+
+    <style name="addBar" parent="Theme.AppCompat">
+
+        <item name="color">@color/white</item>
+
+    </style>
+
+
+    <style name="datePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+
+        <item name="colorAccent">@color/colorPrimary</item>
+
+    </style>
+
+
+    <style name="timePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+
+        <item name="colorAccent">@color/colorPrimary</item>
+
+    </style>
 
 
 

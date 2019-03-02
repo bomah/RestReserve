@@ -37,15 +37,24 @@
         android:layout_height="wrap_content">
 
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="3px"
+            android:background="?android:attr/listDivider"
+
+            />
+
 
         <Button
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnDetails"
             android:text="Find a Table"
             android:background="@color/colorPrimary"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_gravity="center_horizontal"
+
+            android:textColor="@color/white"
 
             />
 
@@ -57,17 +66,6 @@
 
 
 
-        <TextView
-            android:id="@+id/restaurant_address"
-            android:layout_marginTop="12dp"
-            android:lineSpacingMultiplier="1.5"
-            android:padding="12dp"
-            android:text="address"
-            android:layout_margin="0dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
 
 
@@ -77,25 +75,17 @@
 
 
 
-        <TextView
-            android:id="@+id/time_slot"
-            android:layout_marginTop="12dp"
-            android:lineSpacingMultiplier="1.5"
-            android:padding="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Time Slot"
-            android:layout_margin="0dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
 
 
-        <android.support.v7.widget.CardView
+
+        <View
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider">
 
+
+        </View>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_time"
@@ -105,50 +95,199 @@
             android:paddingLeft="16dp"
             android:paddingBottom="20dp"/>
 
-        </android.support.v7.widget.CardView>
-
-
-
-
-
-
-    <TextView
-        android:id="@+id/restaurant_description"
-        android:layout_marginTop="12dp"
-        android:lineSpacingMultiplier="1.5"
-        android:padding="12dp"
-        android:text="Description"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-
-
-
-
 
         <View
+
             android:layout_width="match_parent"
-            android:layout_height="20px"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider">
 
 
-
+        </View>
 
 
 
         <TextView
-        android:id="@+id/restaurant_phoneNumber"
-        android:layout_marginTop="12dp"
-        android:lineSpacingMultiplier="1.5"
-        android:padding="12dp"
-        android:text="Phone Number"
+            android:id="@+id/txtAboutRestaurant"
+            android:layout_marginTop="12dp"
+            android:lineSpacingMultiplier="1.5"
+            android:padding="12dp"
+            android:text="About the Restaurant"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp">
+
+
+            <TextView
+                android:id="@+id/txtPhoneDummy"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"/>
+
+
+
+            <ImageView
+                android:id="@+id/imgPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_phone_black_24dp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/txtPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@id/txtPhoneDummy"
+                android:layout_toRightOf="@+id/imgPhone"
+                />
+
+
+
+            <TextView
+                android:id="@+id/restaurant_phoneNumber"
+
+
+                android:text="Phone Number"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toRightOf="@+id/txtPhone"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp">
+
+
+            <TextView
+                android:id="@+id/txtDescriptionDummy"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"/>
+
+
+            <ImageView
+                android:id="@+id/imgDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_chat_bubble_outline_black_24dp"
+                android:layout_alignParentLeft="true"/>
+
+
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@id/txtDescriptionDummy"
+                android:layout_toRightOf="@+id/imgDescription"
+                />
+
+
+
+            <TextView
+        android:id="@+id/restaurant_description"
+
+        android:text="Description"
         android:textColor="@android:color/black"
         android:textSize="14sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/txtDescription"/>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="Address"
+                android:padding="12dp"
+                />
+
+
+
+            <TextView
+                android:id="@+id/restaurant_address"
+
+                android:padding="12dp"
+                android:text="address"
+                android:layout_margin="0dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtAddress"/>
+
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <fragment
+            android:id="@+id/gMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            />
+
 
 
 
@@ -163,22 +302,10 @@
 
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnShowComment"
-        android:text="Show Comment"
-        />
 
 
 
-        <fragment
-            android:id="@+id/gMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
 
-            />
 
 
 

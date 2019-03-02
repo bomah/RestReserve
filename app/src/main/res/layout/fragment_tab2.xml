@@ -15,33 +15,105 @@
 
     >
 
+    <RelativeLayout
+        android:id="@+id/relTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider"
+
+            />
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starters"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+
+            />
+
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider"
+
+            />
+
+
+    </RelativeLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerStarters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/relTop"
         ></android.support.v7.widget.RecyclerView>
 
-    <View
-        android:id="@+id/divider"
+    <RelativeLayout
+        android:id="@+id/relMiddle"
+        android:layout_below="@id/recyclerStarters"
         android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="?android:attr/listDivider"
-        android:layout_below="@id/recyclerStarters">
+        android:layout_height="wrap_content">
+
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider"
+
+            />
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Main Course"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="?android:attr/listDivider"
+
+            />
 
 
 
 
 
 
-    </View>
+
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerMainCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/divider"></android.support.v7.widget.RecyclerView>
+        android:layout_below="@id/relMiddle"></android.support.v7.widget.RecyclerView>
 </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -55,6 +55,11 @@ public class LogIn extends AppCompatActivity {
 
 
 
+    //Referred to the following
+
+    //https://www.youtube.com/watch?v=s9Ptu1EGxLg&list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj&index=10
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

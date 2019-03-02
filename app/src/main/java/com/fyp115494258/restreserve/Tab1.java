@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,14 +59,24 @@ import com.squareup.picasso.Picasso;
 import com.stepstone.apprating.AppRatingDialog;
 import com.stepstone.apprating.listener.RatingDialogListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 
 public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
-    TextView restaurant_name, restaurant_address, restaurant_description,restaurant_phoneNumber;
+    TextView  restaurant_address, restaurant_description,restaurant_phoneNumber;
 
 
 
@@ -153,8 +164,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
     DatabaseReference ratingTbl;
 
-    //Comments
-    Button btnShowComment;
+
 
     //Map
     Button btnMap;
@@ -232,17 +242,6 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-        //Comments
-        btnShowComment=(Button)Tab1View.findViewById(R.id.btnShowComment);
-        btnShowComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent=new Intent(getActivity(),ShowComment.class);
-                intent.putExtra(Common.INTENT_RESTAURANT_ID,currentRestId);
-                startActivity(intent);
-            }
-        });
 
 
         //Rating
@@ -272,7 +271,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
         restaurant_description = (TextView) Tab1View.findViewById(R.id.restaurant_description);
-        restaurant_name = (TextView) Tab1View.findViewById(R.id.restaurant_name);
+
         restaurant_address = (TextView) Tab1View.findViewById(R.id.restaurant_address);
         restaurant_phoneNumber= (TextView) Tab1View.findViewById(R.id.restaurant_phoneNumber);
 
@@ -341,7 +340,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(restaurantLocation)
                 .icon(BitmapDescriptorFactory.defaultMarker()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(restaurantLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
 
 
 
@@ -388,7 +387,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
     private void enterDetails() {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(),R.style.AlertDialogTheme);
 
         alertDialog.setTitle("Provide Reservation Details");
 
@@ -459,7 +458,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 month = calendar.get(Calendar.MONTH);
                 dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-                datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                datePickerDialog = new DatePickerDialog(getActivity(), R.style.datePickerDialog,new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -577,9 +576,26 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
                 //time=model.getTime();
 
+  /*
+
+                ArrayList<Double> times = new ArrayList<Double>();
+                times.add(d.parseDouble(model.getTime()));
 
 
 
+                Collections.sort(times);
+
+
+
+                for(Double counter: times){
+                    viewHolder.btnTime.setText(String.valueOf(counter));
+
+                }
+
+*/
+
+
+/*
 
                 viewHolder.btnTime.setText("");
 
@@ -617,7 +633,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-
+*/
 
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -776,7 +792,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
                 restaurant_address.setText(currentRestaurant.getAddress());
 
-                restaurant_name.setText(currentRestaurant.getName());
+
 
                 restaurant_description.setText(currentRestaurant.getDescription());
 

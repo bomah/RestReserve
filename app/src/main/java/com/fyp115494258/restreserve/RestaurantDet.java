@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -233,10 +234,12 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
                 .setDescription("Please provide a rating")
                 .setTitleTextColor(R.color.colorPrimary)
                 .setDescriptionTextColor(R.color.colorPrimary)
+                .setStarColor(R.color.colorPrimary)
+                .setNoteDescriptionTextColor(R.color.colorPrimary)
                 .setHint("Please comment here...")
-                .setHintTextColor(R.color.colorAccent)
+                .setHintTextColor(R.color.white)
                 .setCommentTextColor(android.R.color.white)
-                .setCommentBackgroundColor(R.color.colorPrimaryDark)
+                .setCommentBackgroundColor(R.color.colorPrimary)
                 .setWindowAnimation(R.style.RatingDialogFadeAnim)
                 .create(RestaurantDet.this)
                 .show();

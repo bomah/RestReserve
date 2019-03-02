@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class RestaurantAdminRestaurantDet extends AppCompatActivity implements RatingDialogListener {
+public class RestaurantAdminRestaurantDet extends AppCompatActivity  {
 
     FirebaseDatabase database;
     DatabaseReference restaurant;
@@ -110,16 +110,6 @@ public class RestaurantAdminRestaurantDet extends AppCompatActivity implements R
         // getSupportActionBar().setTitle("Title");
 
 
-        btnRating = (FloatingActionButton) findViewById(R.id.btnRating);
-
-
-        btnRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showRatingDialog();
-            }
-        });
-
 
         //Bundle bundle = getIntent().getExtras();
 
@@ -175,62 +165,9 @@ public class RestaurantAdminRestaurantDet extends AppCompatActivity implements R
     }
 
 
-    private void showRatingDialog() {
-
-        new AppRatingDialog.Builder()
-                .setPositiveButtonText("Submit")
-                .setNegativeButtonText("Cancel")
-                .setNoteDescriptions(Arrays.asList("Not Great", "Average", "Ok", "Very Good", "Excellent"))
-                .setDefaultRating(1)
-                .setTitle("Rate this restaurant")
-                .setDescription("Please provide a rating")
-                .setTitleTextColor(R.color.colorPrimary)
-                .setDescriptionTextColor(R.color.colorPrimary)
-                .setHint("Please comment here...")
-                .setHintTextColor(R.color.colorAccent)
-                .setCommentTextColor(android.R.color.white)
-                .setCommentBackgroundColor(R.color.colorPrimaryDark)
-                .setWindowAnimation(R.style.RatingDialogFadeAnim)
-                .create(RestaurantAdminRestaurantDet.this)
-                .show();
 
 
-    }
 
-
-    @Override
-    public void onNegativeButtonClicked() {
-
-    }
-
-    @Override
-    public void onNeutralButtonClicked() {
-
-    }
-
-    @Override
-
-    public void onPositiveButtonClicked(int value, @NotNull String comments) {
-
-
-        final Rating rating = new Rating(Common.currentUser.getFirstName(),
-                Common.restId,
-                String.valueOf(value),
-                comments);
-
-        ratingTbl.push()
-                .setValue(rating)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        Toast.makeText(RestaurantAdminRestaurantDet.this, "Review submitted", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-
-    }
 
 
     private void getDetailRestaurant(String restaurantId) {

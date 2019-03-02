@@ -24,7 +24,8 @@
         android:layout_marginRight="7dp"
         android:background="@drawable/borderbutton"
         android:text="16:30 "
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         android:textSize="16sp"/>
 
 </LinearLayout>

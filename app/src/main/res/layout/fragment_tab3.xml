@@ -7,9 +7,27 @@
     tools:context=".ShowComment"
     android:id="@+id/swipe_layout">
 
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="?android:attr/listDivider"
+
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerComment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider1"></android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

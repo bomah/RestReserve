@@ -37,7 +37,7 @@ public class RestaurantAdminTabsAdapter extends FragmentStatePagerAdapter {
                 return tab3;
                 */
             case 0:
-                Tab1 tab1= new Tab1();
+                RestaurantAdminTab1 tab1= new RestaurantAdminTab1();
 
                 return tab1;
             case 1:
@@ -73,9 +73,9 @@ public class RestaurantAdminTabsAdapter extends FragmentStatePagerAdapter {
     @Override    public CharSequence getPageTitle(int position) {
 
         switch (position){
-            case 0: return "Tab 1";
-            case 1: return "Tab 2";
-            case 2: return "Tab 3";
+            case 0: return "Book";
+            case 1: return "Menu";
+            case 2: return "Reviews";
             default: return null;
         }
 

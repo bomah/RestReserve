@@ -41,6 +41,17 @@ public class SignUp extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+
+
+    //Referred to the following
+    //https://www.youtube.com/watch?v=sdemJT8IlmQ&list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj&index=9
+    //https://www.youtube.com/watch?v=s9Ptu1EGxLg&list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj&index=10
+    //https://www.youtube.com/watch?v=eizfx5lRE4M&index=12&list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj
+
+    //https://www.youtube.com/watch?v=LLWqlyvHEi8
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

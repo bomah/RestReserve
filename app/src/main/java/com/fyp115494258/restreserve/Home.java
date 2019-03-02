@@ -25,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
+import com.fyp115494258.restreserve.Model.Rating;
 import com.fyp115494258.restreserve.Model.Restaurant;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,9 +43,13 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity
@@ -81,6 +87,11 @@ public class Home extends AppCompatActivity
     FirebaseAuth mAuth;
 
 
+    RatingBar ratingBar;
+
+    DatabaseReference ratingTbl;
+
+
 
 
 
@@ -105,6 +116,10 @@ public class Home extends AppCompatActivity
         //Init Firebase
         database = FirebaseDatabase.getInstance();
         restaurant = database.getReference("Restaurant");
+
+        ratingTbl=database.getReference("Rating");
+
+        ratingBar=(RatingBar)findViewById(R.id.ratingBar);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -138,6 +153,9 @@ public class Home extends AppCompatActivity
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
+
+
+        //getRatingRestaurant();
 
 
         //Referred to the following
@@ -193,6 +211,39 @@ public class Home extends AppCompatActivity
         super.onStart();
 
 
+    }
+
+
+    private void getRatingRestaurant() {
+
+
+
+        ratingTbl.addValueEventListener(new ValueEventListener() {
+
+            int count=0,sum=0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+
+                    Rating item =postSnapshot.getValue(Rating.class);
+                    sum+=Integer.parseInt(item.getRateValue());
+                    count++;
+                }
+                if(count !=0)
+                {
+                    float average= sum/count;
+                    ratingBar.setRating(average);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

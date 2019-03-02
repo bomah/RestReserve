@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.fyp115494258.restreserve.Common.Common;
@@ -22,6 +23,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder
 
     public TextView txtRestaurantDistance;
 
+   
+
     private ItemClickListener itemClickListener;
 
     public RestaurantViewHolder(@NonNull View itemView) {
@@ -31,6 +34,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder
         imageView =(ImageView)itemView.findViewById(R.id.restaurant_image);
 
         txtRestaurantDistance=(TextView)itemView.findViewById(R.id.restaurant_distance);
+
+
 
         itemView.setOnClickListener(this);
     }

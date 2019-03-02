@@ -18,9 +18,12 @@
         android:layout_marginTop="9dp"
         android:id="@+id/txtFoodName"
         android:text="Food Name"
-        android:textSize="20sp"
+        android:textSize="18sp"
 
-        android:textStyle="bold"/>
+        android:textColor="@android:color/black"
+
+
+        />
 
 
 
@@ -29,12 +32,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtPrice"
         android:text="Price"
-        android:textSize="16sp"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+
         android:layout_alignParentRight="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="9dp"
-        android:textStyle="bold"/>
+        />
 
 
     <ImageButton
