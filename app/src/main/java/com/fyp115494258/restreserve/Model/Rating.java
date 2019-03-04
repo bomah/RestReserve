@@ -4,6 +4,7 @@ public class Rating {
 
     private String userName;
     private String restaurantId;
+    private String restaurantName;
     private String rateValue;
     private String comment;
 
@@ -11,10 +12,11 @@ public class Rating {
 
     }
 
-    public Rating(String UserName, String RestaurantId, String RateValue, String Comment){
+    public Rating(String UserName, String RestaurantId, String RestaurantName, String RateValue, String Comment){
 
         this.setUserName(UserName);
         this.setRestaurantId(RestaurantId);
+        this.setRestaurantName(RestaurantName);
         this.setRateValue(RateValue);
         this.setComment(Comment);
     }
@@ -52,5 +54,13 @@ public class Rating {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 }

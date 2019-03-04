@@ -35,6 +35,7 @@ import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
 import com.fyp115494258.restreserve.Model.Rating;
 import com.fyp115494258.restreserve.Model.Restaurant;
+import com.fyp115494258.restreserve.ViewHolder.RestaurantAdminStartersViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -203,6 +204,14 @@ public class Home extends AppCompatActivity
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -214,37 +223,6 @@ public class Home extends AppCompatActivity
     }
 
 
-    private void getRatingRestaurant() {
-
-
-
-        ratingTbl.addValueEventListener(new ValueEventListener() {
-
-            int count=0,sum=0;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
-
-                    Rating item =postSnapshot.getValue(Rating.class);
-                    sum+=Integer.parseInt(item.getRateValue());
-                    count++;
-                }
-                if(count !=0)
-                {
-                    float average= sum/count;
-                    ratingBar.setRating(average);
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 
 
@@ -334,8 +312,64 @@ public class Home extends AppCompatActivity
             protected void onBindViewHolder(@NonNull RestaurantViewHolder viewHolder, int position, @NonNull Restaurant model) {
 
 
+
                 viewHolder.txtRestaurantName.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(viewHolder.imageView);
+
+
+
+                final RestaurantViewHolder mHolder=viewHolder;
+
+                Query restaurantRating=ratingTbl.orderByChild("restaurantName").equalTo(model.getName());
+
+
+                restaurantRating.addValueEventListener(new ValueEventListener() {
+
+                    int count=0,sum=0;
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+
+                            Rating item =postSnapshot.getValue(Rating.class);
+                            sum+=Integer.parseInt(item.getRateValue());
+                            count++;
+                        }
+                        if(count !=0)
+                        {
+                            float average= sum/count;
+                            mHolder.ratingBar.setRating(average);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+                //getRatingRestaurant(model.getName());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 //referred to the following
 //https://stackoverflow.com/questions/8049612/calculating-distance-between-two-geographic-locations
@@ -346,11 +380,17 @@ public class Home extends AppCompatActivity
                 currentLocation.setLongitude(mLastLocation.getLongitude());
 
 
+
+
+
+
                 distanceLocation = new Location("");
                 distanceLocation.setLatitude(model.getLat());
                 distanceLocation.setLongitude(model.getLng());
 
                 distance = currentLocation.distanceTo(distanceLocation)/1000;
+
+
 
                 viewHolder.txtRestaurantDistance.setText(String.format("%.2f",distance).concat(" km"));
 

@@ -170,7 +170,7 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
 
             getDetailRestaurant(RestaurantId);
 
-            getRatingRestaurant(RestaurantId);
+            //getRatingRestaurant(RestaurantId);
 
 
 
@@ -265,6 +265,7 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
 
         final Rating rating = new Rating(Common.currentUser.getFirstName(),
                 Common.restId,
+                Common.currentRestaurant.getName(),
                 String.valueOf(value),
                 comments);
 
@@ -300,6 +301,9 @@ public class RestaurantDet extends AppCompatActivity implements RatingDialogList
                 Picasso.get().load(currentRestaurant.getImage()).into(restaurant_image);
 
                 collapsingToolbarLayout.setTitle(currentRestaurant.getName());
+
+
+                getRatingRestaurant(Common.restId);
 
                 //getSupportActionBar().setTitle(currentRestaurant.getName());
             }

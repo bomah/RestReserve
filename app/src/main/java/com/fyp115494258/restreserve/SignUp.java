@@ -133,11 +133,11 @@ public class SignUp extends AppCompatActivity {
 
         else if(TextUtils.isEmpty(password))
         {
-            Toast.makeText(this, "Please provide your Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please provide Password", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(confirmPassword))
         {
-            Toast.makeText(this, "Please confirm your Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please confirm Password", Toast.LENGTH_SHORT).show();
         }
         else if(!password.equals(confirmPassword))
         {

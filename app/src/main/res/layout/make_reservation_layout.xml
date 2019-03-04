@@ -1,41 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtRestaurantName"/>
+        android:id="@+id/relRestaurantName">
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name: "
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/lblRestaurantName"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/lblRestaurantName"
+            android:textSize="14dp"
+            android:text="Restaurant Name: "
+            android:textColor="@android:color/black"
+            android:id="@+id/txtRestaurantName"/>
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relRestaurantName"
+        android:id="@+id/relDate">
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: "
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/lblDate"/>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtPersonName"/>
+        android:text="Date "
+        android:textSize="14dp"
+        android:textColor="@android:color/black"
+        android:layout_toRightOf="@id/lblDate"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
         android:id="@+id/txtDate"/>
 
-    <TextView
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relTime"
+        android:layout_below="@id/relDate">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time: "
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/lblTime"/>
+
+
+
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+            android:text="Time: "
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@id/lblTime"
         android:id="@+id/txtTime"/>
 
-    <TextView
+
+</RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relTime"
+        android:id="@+id/relNumberOfPeople">
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservation Number: "
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/lblNumberOfPeople"/>
+
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+            android:text="Reservation Size: "
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@id/lblNumberOfPeople"
         android:id="@+id/txtNumberOfPeople"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtReservationSlotKey"/>
+
+</RelativeLayout>
 
 
 
 
 
-</LinearLayout>
+
+
+
+    </RelativeLayout>

@@ -23,7 +23,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder
 
     public TextView txtRestaurantDistance;
 
-   
+    public RatingBar ratingBar;
 
     private ItemClickListener itemClickListener;
 
@@ -34,6 +34,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder
         imageView =(ImageView)itemView.findViewById(R.id.restaurant_image);
 
         txtRestaurantDistance=(TextView)itemView.findViewById(R.id.restaurant_distance);
+
+        ratingBar=(RatingBar) itemView.findViewById(R.id.ratingBar);
 
 
 

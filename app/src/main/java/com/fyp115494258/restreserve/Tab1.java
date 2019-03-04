@@ -575,27 +575,82 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
                 //time=model.getTime();
+                //ArrayList<String> times = new ArrayList<String>();
+                //times.add(model.getTime());
 
-  /*
+                final TimeViewHolder mHolder=viewHolder;
+                final ReservationSlot mModel=model;
 
-                ArrayList<Double> times = new ArrayList<Double>();
-                times.add(d.parseDouble(model.getTime()));
+/*
+                Query getReservationByTime = reservationSlot.orderByChild("time").limitToLast(5);
 
+                getReservationByTime.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        mHolder.btnTime.setText(String.valueOf(mModel.getTime()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+*/
+
+
+
+
+
+/*
+                ReservationSlot rSlot=new ReservationSlot();
+
+                String time=model.getTime();
+
+                rSlot.setTime(time);
+                times.add(rSlot);
+
+                Collections.sort(times, new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return o1.getTime();
+                    }
+                });
+
+*/
+
+
+                //List<ReservationSlot> times = Arrays.asList(new ReservationSlot(model.getDate(),model.getTime(),model.getRestaurantId(),model.getDateRestaurantId(),model.getNumberOfPeople()));
+               // times.add();
+
+
+                //Collections.sort(times,(a,b)-> a.getTime()<b.getTime()?-1:a.getTime()==b.getTime()?0:1);
+
+               //viewHolder.btnTime.setText(times);
+
+
+
+/*
+                List<Integer> times = new ArrayList<Integer>();
+                times.add(model.getTime());
 
 
                 Collections.sort(times);
 
 
 
-                for(Double counter: times){
-                    viewHolder.btnTime.setText(String.valueOf(counter));
+                for(int i=0;i<times.size();i++){
+
+                    mHolder.btnTime.setText(String.valueOf(times.get(i)));
 
                 }
 
 */
 
 
-/*
+
+
 
                 viewHolder.btnTime.setText("");
 
@@ -633,7 +688,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-*/
+
 
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -647,7 +702,12 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 viewHolder.setItemClickListener(new ItemClickListener() {
                                                     @Override
                                                     public void onClick(View view, int position, boolean isLongClick) {
-                                                        Toast.makeText(getActivity(), "" + clickItem.getTime(), Toast.LENGTH_SHORT).show();
+
+
+
+
+
+                                                        //Toast.makeText(getActivity(), "" + clickItem.getTime(), Toast.LENGTH_SHORT).show();
                                                         updatedNumberOfPeople=clickItem.getNumberOfPeople()-peopleCount;
                                                         time=clickItem.getTime();
                                                         reservationSlotKey=recyclerAdapter.getRef(position).getKey();
@@ -701,7 +761,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
         alertDialog.setTitle("Reservation Details");
 
-        alertDialog.setMessage("Please provide information");
+        alertDialog.setMessage("Your Reservation Details");
 
         LayoutInflater inflator = this.getLayoutInflater();
 
@@ -709,14 +769,14 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
         txtRestaurantName = make_reservation_layout.findViewById(R.id.txtRestaurantName);
-        txtPersonName= make_reservation_layout.findViewById(R.id.txtPersonName);
+
         txtDate = make_reservation_layout.findViewById(R.id.txtDate);
         txtTime= make_reservation_layout.findViewById(R.id.txtTime);
         txtNumberOfPeople= make_reservation_layout.findViewById(R.id.txtNumberOfPeople);
-        txtReservationSlotKey= make_reservation_layout.findViewById(R.id.txtReservationSlotKey);
+
 
         txtRestaurantName.setText(currentRestaurant.getName());
-        txtPersonName.setText(Common.currentUser.getFirstName());
+        //txtPersonName.setText(Common.currentUser.getFirstName());
 
         txtDate.setText(dateSelected);
         txtTime.setText(time);
@@ -725,11 +785,11 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),txtPersonName.getText().toString(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
+        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),Common.currentUser.getFirstName()+Common.currentUser.getLastName(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
 
 
         alertDialog.setView(make_reservation_layout);
-        alertDialog.setIcon(R.drawable.ic_add_black_24dp);
+        alertDialog.setIcon(R.drawable.ic_done_black_24dp);
 
         //Set Button
         alertDialog.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {

@@ -16,9 +16,12 @@ import com.fyp115494258.restreserve.Model.Reservation;
 import com.fyp115494258.restreserve.Model.Restaurant;
 import com.fyp115494258.restreserve.ViewHolder.ReservationViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class ReservationList extends AppCompatActivity {
 
@@ -59,8 +62,8 @@ public class ReservationList extends AppCompatActivity {
 
     private void loadReservations() {
 
-        Query getReservationByPhone = reservation.orderByChild("personPhoneNumber")
-                .equalTo(Common.currentUser.getPhoneNumber());
+        Query getReservationByPhone = reservation.orderByChild("date")
+                .equalTo("8/3/2019");
 
 
         FirebaseRecyclerOptions<Reservation> reservationOptions = new FirebaseRecyclerOptions.Builder<Reservation>()
@@ -71,11 +74,32 @@ public class ReservationList extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ReservationViewHolder viewHolder, int position, @NonNull Reservation model) {
 
-                viewHolder.txtRestaurantName.setText(model.getRestaurantName());
 
-                viewHolder.txtDate.setText(model.getDate());
-                viewHolder.txtTime.setText(model.getTime());
-                viewHolder.txtNumberOfPeople.setText(String.valueOf(model.getNumberOfPeople()).concat(" People"));
+
+                final ReservationViewHolder mHolder=viewHolder;
+                final Reservation mModel=model;
+
+                Query userView= reservation.orderByChild("personPhoneNumber").equalTo(Common.currentUser.getPhoneNumber());
+
+                userView.addValueEventListener(new ValueEventListener() {
+                                                   @Override
+                                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                                       mHolder.txtRestaurantName.setText(mModel.getRestaurantName());
+
+                                                       mHolder.txtDate.setText(mModel.getDate());
+                                                       mHolder.txtTime.setText(mModel.getTime());
+                                                       mHolder.txtNumberOfPeople.setText(String.valueOf(mModel.getNumberOfPeople()).concat(" People"));
+
+                                                   }
+
+                                                   @Override
+                                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                   }
+                                               });
+
+
 
 
             }

@@ -177,9 +177,9 @@ public class RestaurantAdminTab2 extends Fragment {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-        alertDialog.setTitle("Add new restaurant");
+        alertDialog.setTitle("Add new main course");
 
-        alertDialog.setMessage("Please provide information");
+        alertDialog.setMessage("Please provide details");
 
         LayoutInflater inflator = this.getLayoutInflater();
 
@@ -241,9 +241,9 @@ public class RestaurantAdminTab2 extends Fragment {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-        alertDialog.setTitle("Add new restaurant");
+        alertDialog.setTitle("Add new starter");
 
-        alertDialog.setMessage("Please provide information");
+        alertDialog.setMessage("Please provide details");
 
         LayoutInflater inflator = this.getLayoutInflater();
 
@@ -501,7 +501,7 @@ public class RestaurantAdminTab2 extends Fragment {
 
         alertDialog.setTitle("Update Menu Item");
 
-        alertDialog.setMessage("Please provide information");
+        alertDialog.setMessage("Please provide details");
 
         LayoutInflater inflator = this.getLayoutInflater();
 
@@ -576,7 +576,7 @@ public class RestaurantAdminTab2 extends Fragment {
 
         alertDialog.setTitle("Update Menu Item");
 
-        alertDialog.setMessage("Please provide information");
+        alertDialog.setMessage("Please provide details");
 
         LayoutInflater inflator = this.getLayoutInflater();
 

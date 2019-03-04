@@ -368,7 +368,7 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
                         // newReservationSlot = new ReservationSlot(edtChooseTime.getText().toString(),edtRestaurantId.getText().toString());
 
 
-                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount);
+                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(),edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount);
 
 
 
