@@ -56,7 +56,9 @@
         <activity android:name=".SignUp" />
         <activity android:name=".MenuList" />
         <activity android:name=".StartersList" />
-        <activity android:name=".RestaurantAdminRestaurantDet"></activity>
+        <activity android:name=".RestaurantAdminRestaurantDet" />
+        <activity android:name=".Events" />
+        <activity android:name=".AdminEvents"></activity>
     </application>
 
 </manifest>

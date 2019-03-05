@@ -101,7 +101,7 @@
 
             android:text=""
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:inputType="text"
 
 

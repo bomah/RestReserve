@@ -439,8 +439,9 @@ public class AdminHome extends AppCompatActivity
         int id = item.getItemId();
 
 
-        if (id == R.id.nav_menu) {
-            return true;
+        if (id == R.id.nav_foodieEvent) {
+            Intent foodieEvent = new Intent(AdminHome.this, AdminEvents.class);
+            startActivity(foodieEvent);
         } else if (id == R.id.nav_logout) {
 
 

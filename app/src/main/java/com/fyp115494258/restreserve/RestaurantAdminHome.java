@@ -319,7 +319,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
-        if (id == R.id.nav_menu) {
+        if (id == R.id.nav_foodieEvent) {
             return true;
         }else if (id == R.id.nav_reservations) {
             Intent reservationList = new Intent(RestaurantAdminHome.this, RestaurantAdminReservationList.class);
