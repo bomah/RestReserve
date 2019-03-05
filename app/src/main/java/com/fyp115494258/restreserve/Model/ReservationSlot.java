@@ -10,6 +10,7 @@ public class ReservationSlot {
 
     //
     private String dateRestaurantId;
+    private String dateTime;
 
     private int numberOfPeople;
 
@@ -18,15 +19,17 @@ public class ReservationSlot {
 
     }
 
-    public ReservationSlot(String Date,String Time,String RestaurantId,String DateRestaurantId,int NumberOfPeople){
+    public ReservationSlot(String Date,String Time,String RestaurantId,String DateRestaurantId, String DateTime,int NumberOfPeople){
 
         setDate(Date);
         setTime(Time);
         setRestaurantId(RestaurantId);
         setDateRestaurantId(DateRestaurantId);
+        setDateTime(DateTime);
         setNumberOfPeople(NumberOfPeople);
 
     }
+
 
 
 
@@ -72,5 +75,13 @@ public class ReservationSlot {
 
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

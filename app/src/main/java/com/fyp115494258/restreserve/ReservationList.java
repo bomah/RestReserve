@@ -1,13 +1,17 @@
 package com.fyp115494258.restreserve;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -23,6 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ReservationList extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -34,6 +42,17 @@ public class ReservationList extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reservation;
 
+
+    ViewPager viewPager;
+    TabsAdapterReservations tabAdapter;
+
+    TabLayout tabLayout;
+
+    Toolbar tBar;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,86 +63,31 @@ public class ReservationList extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reservation = database.getReference("Reservation");
 
-        //Init
-        recyclerView = findViewById(R.id.listReservations);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+
+        tBar=(Toolbar)findViewById(R.id.tBar);
 
 
 
 
-        loadReservations();
+        viewPager = (ViewPager) findViewById(R.id.pagerReservations);
+        tabAdapter = new TabsAdapterReservations(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
 
+
+
+
+
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutReservations);
+
+
+
+        tabLayout.setupWithViewPager(viewPager);
 
 
 
     }
 
-    private void loadReservations() {
-
-        Query getReservationByPhone = reservation.orderByChild("date")
-                .equalTo("8/3/2019");
 
 
-        FirebaseRecyclerOptions<Reservation> reservationOptions = new FirebaseRecyclerOptions.Builder<Reservation>()
-                .setQuery(getReservationByPhone,Reservation.class)
-                .build();
-
-        adapter = new FirebaseRecyclerAdapter<Reservation, ReservationViewHolder>(reservationOptions) {
-            @Override
-            protected void onBindViewHolder(@NonNull ReservationViewHolder viewHolder, int position, @NonNull Reservation model) {
-
-
-
-                final ReservationViewHolder mHolder=viewHolder;
-                final Reservation mModel=model;
-
-                Query userView= reservation.orderByChild("personPhoneNumber").equalTo(Common.currentUser.getPhoneNumber());
-
-                userView.addValueEventListener(new ValueEventListener() {
-                                                   @Override
-                                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                                       mHolder.txtRestaurantName.setText(mModel.getRestaurantName());
-
-                                                       mHolder.txtDate.setText(mModel.getDate());
-                                                       mHolder.txtTime.setText(mModel.getTime());
-                                                       mHolder.txtNumberOfPeople.setText(String.valueOf(mModel.getNumberOfPeople()).concat(" People"));
-
-                                                   }
-
-                                                   @Override
-                                                   public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                   }
-                                               });
-
-
-
-
-            }
-
-            @NonNull
-            @Override
-            public ReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.reservation_layout,parent,false);
-                return new ReservationViewHolder(itemView);
-
-
-            }
-        };
-        adapter.startListening();
-        //adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
 }

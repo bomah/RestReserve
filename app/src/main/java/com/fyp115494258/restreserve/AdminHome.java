@@ -71,7 +71,7 @@ public class AdminHome extends AppCompatActivity
 
 
     //Server side
-    EditText edtName,edtDescription,edtAddress,edtLat,edtLng,edtPhoneNumber,edtAdminEmail;
+    EditText edtName,edtDescription,edtAddress,edtLat,edtLng,edtPhoneNumber,edtAdminEmail,edtLocalEthos,edtHours;
 
     Button btnUpload,btnSelect;
 
@@ -179,7 +179,7 @@ public class AdminHome extends AppCompatActivity
 
         alertDialog.setTitle("Add new restaurant");
 
-        alertDialog.setMessage("Please provide information");
+       // alertDialog.setMessage("Please provide information");
 
         LayoutInflater inflator = this.getLayoutInflater();
 
@@ -191,6 +191,8 @@ public class AdminHome extends AppCompatActivity
         edtName = add_restaurant_layout.findViewById(R.id.edtName);
         edtDescription = add_restaurant_layout.findViewById(R.id.edtDescription);
         edtAddress = add_restaurant_layout.findViewById(R.id.edtAddress);
+        edtLocalEthos=add_restaurant_layout.findViewById((R.id.edtLocalEthos));
+        edtHours=add_restaurant_layout.findViewById((R.id.edtHours));
         edtLat = add_restaurant_layout.findViewById(R.id.edtLat);
         edtLng = add_restaurant_layout.findViewById(R.id.edtLng);
         edtPhoneNumber= add_restaurant_layout.findViewById(R.id.edtPhoneNumber);
@@ -251,6 +253,9 @@ public class AdminHome extends AppCompatActivity
 
             }
         });
+
+
+
         alertDialog.show();
 
 
@@ -280,7 +285,7 @@ public class AdminHome extends AppCompatActivity
                                     Lat=Double.parseDouble(edtLat.getText().toString());
                                     Lng=Double.parseDouble(edtLng.getText().toString());
 
-                                    newRestaurant = new Restaurant(edtName.getText().toString(),edtAddress.getText().toString(),Lat,Lng,edtDescription.getText().toString(),edtPhoneNumber.getText().toString(), uri.toString(), edtAdminEmail.getText().toString());
+                                    newRestaurant = new Restaurant(edtName.getText().toString(),edtAddress.getText().toString(),Lat,Lng,edtDescription.getText().toString(),edtHours.getText().toString(),edtPhoneNumber.getText().toString(), uri.toString(), edtAdminEmail.getText().toString(),edtLocalEthos.getText().toString());
 
                                 }
                             });
@@ -484,7 +489,7 @@ public class AdminHome extends AppCompatActivity
 
         alertDialog.setTitle("Update Restaurant Details");
 
-        alertDialog.setMessage("Please provide information");
+        //alertDialog.setMessage("Please provide information");
 
         LayoutInflater inflator = this.getLayoutInflater();
 
@@ -494,6 +499,8 @@ public class AdminHome extends AppCompatActivity
         edtName = add_restaurant_layout.findViewById(R.id.edtName);
         edtDescription = add_restaurant_layout.findViewById(R.id.edtDescription);
         edtAddress = add_restaurant_layout.findViewById(R.id.edtAddress);
+        edtLocalEthos= add_restaurant_layout.findViewById(R.id.edtLocalEthos);
+        edtHours= add_restaurant_layout.findViewById(R.id.edtHours);
         edtLat = add_restaurant_layout.findViewById(R.id.edtLat);
         edtLng = add_restaurant_layout.findViewById(R.id.edtLng);
         edtPhoneNumber= add_restaurant_layout.findViewById(R.id.edtPhoneNumber);
@@ -505,9 +512,13 @@ public class AdminHome extends AppCompatActivity
 
         //set default name
         edtName.setText(item.getName());
+        edtDescription.setText(item.getDescription());
         edtAdminEmail.setText(item.getAdminEmail());
 
         edtAddress.setText(item.getAddress());
+        edtLocalEthos.setText(item.getLocalEthos());
+        edtHours.setText(item.getHours());
+
         edtLat.setText(String.valueOf(item.getLat()));
         edtLng.setText(String.valueOf(item.getLng()));
         edtPhoneNumber.setText(item.getPhoneNumber());
@@ -562,11 +573,15 @@ public class AdminHome extends AppCompatActivity
                 //Update Information
                 item.setName(edtName.getText().toString());
                 item.setAddress(edtAddress.getText().toString());
+
                 item.setLat(latitude);
                 item.setLng(longitude);
                 item.setDescription(edtDescription.getText().toString());
+                item.setHours(edtHours.getText().toString());
                 item.setPhoneNumber(edtPhoneNumber.getText().toString());
                 item.setAdminEmail(edtAdminEmail.getText().toString());
+                item.setLocalEthos(edtLocalEthos.getText().toString());
+
                 restaurant.child(key).setValue(item);
 
 

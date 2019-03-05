@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardElevation="4dp">
+    app:cardElevation="6dp">
 
 
 
@@ -68,6 +68,46 @@
 
 
                 />
+
+
+            <EditText
+
+                android:id="@+id/edtLocalEthos"
+                android:hint="Local Ethos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text=""
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:inputType="text"
+
+
+
+
+                />
+
+
+            <EditText
+
+                android:id="@+id/edtHours"
+                android:hint="Hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text=""
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:inputType="text"
+
+
+
+
+                />
+
+
+
+
 
             <EditText
 
@@ -177,7 +217,20 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
 
+
                     />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp">
+
+
+
+
 
             </LinearLayout>
 

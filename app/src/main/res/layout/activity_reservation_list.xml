@@ -1,17 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+
+
+    >
+
+<!--Referred to the following youtube videohttps://www.youtube.com/watch?v=fItHmbRQUW8&t=0s&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=10
+to aid my understanding-->
+
+
+
+
+<android.support.design.widget.AppBarLayout
+    android:id="@+id/app_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Reservations"
+            app:titleTextColor="@color/white"
+
+
+            app:layout_collapseMode="pin"
+            />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</android.support.design.widget.AppBarLayout>
+
+
+
+
+<!--https://stackoverflow.com/questions/30580954/viewpager-in-a-nestedscrollview
+
+-->
+
+
+
+<LinearLayout
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+
+
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservationList">
+    >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listReservations"
-        android:background="@android:color/transparent"
+
+
+
+    <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:id="@+id/tabLayoutReservations"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
 
 
-</RelativeLayout>
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimary"
+
+
+
+        />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pagerReservations"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+
+        />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

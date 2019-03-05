@@ -81,4 +81,9 @@ limitations under the License.*/
 
     implementation 'com.google.firebase:firebase-auth:16.0.5'
 
+
+    implementation 'com.google.firebase:firebase-messaging:17.4.0'
+
+
+
 }

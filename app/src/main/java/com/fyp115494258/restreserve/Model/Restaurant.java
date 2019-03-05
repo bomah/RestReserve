@@ -7,9 +7,11 @@ public class Restaurant {
     private double lat;
     private double lng;
     private String description;
+    private String hours;
     private String phoneNumber;
     private String image;
     private String adminEmail;
+    private String localEthos;
 
 
 
@@ -17,19 +19,25 @@ public class Restaurant {
 
     }
 
-    public Restaurant(String Name,String Address,double Lat,double Lng,String Description,String PhoneNumber,String Image,String AdminEmail){
+    public Restaurant(String Name,String Address,double Lat,double Lng,String Description,String Hours,String PhoneNumber,String Image,String AdminEmail,String LocalEthos){
 
         setName(Name);
         setAddress(Address);
+
         setLat(Lat);
         setLng(Lng);
 
         setDescription(Description);
+        setHours(Hours);
         setPhoneNumber(PhoneNumber);
         setImage(Image);
         setAdminEmail(AdminEmail);
+        setLocalEthos(LocalEthos);
 
     }
+
+
+
 
 
 
@@ -102,5 +110,21 @@ public class Restaurant {
 
     public void setAdminEmail(String adminEmail) {
         this.adminEmail = adminEmail;
+    }
+
+    public String getLocalEthos() {
+        return localEthos;
+    }
+
+    public void setLocalEthos(String localEthos) {
+        this.localEthos = localEthos;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 }

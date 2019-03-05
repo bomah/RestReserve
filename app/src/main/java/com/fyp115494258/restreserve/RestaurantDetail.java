@@ -174,6 +174,9 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
     Marker mCurrentMarker;
 
 
+    String dateTime="";
+
+
 
 
 
@@ -722,7 +725,7 @@ public class RestaurantDetail extends AppCompatActivity implements RatingDialogL
 
 
 
-        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),txtPersonName.getText().toString(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
+        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),txtPersonName.getText().toString(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),txtDate.getText().toString(),txtTime.getText().toString(),dateTime,peopleCount);
 
 
         alertDialog.setView(make_reservation_layout);

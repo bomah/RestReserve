@@ -104,6 +104,9 @@ public class RestaurantAdminRestaurantDetail extends AppCompatActivity  {
     int timeInt;
 
 
+    String dateTime="";
+
+
 
 
 
@@ -267,7 +270,7 @@ public class RestaurantAdminRestaurantDetail extends AppCompatActivity  {
                         edtChooseDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
 
 
-                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount);
+                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount);
                     }
                 }, year, month, dayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -311,7 +314,7 @@ public class RestaurantAdminRestaurantDetail extends AppCompatActivity  {
                         // newReservationSlot = new ReservationSlot(edtChooseTime.getText().toString(),edtRestaurantId.getText().toString());
 
 
-                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount);
+                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount);
 
 
 
@@ -356,7 +359,7 @@ public class RestaurantAdminRestaurantDetail extends AppCompatActivity  {
 
                 if(newReservationSlot!=null)
                 {
-                    reservationSlot.push().setValue(new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount));
+                    reservationSlot.push().setValue(new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount));
 
 
                 }

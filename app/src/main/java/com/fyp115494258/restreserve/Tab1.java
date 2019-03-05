@@ -30,12 +30,15 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.fyp115494258.restreserve.Common.Common;
 import com.fyp115494258.restreserve.Interface.ItemClickListener;
+import com.fyp115494258.restreserve.Model.MyResponse;
 import com.fyp115494258.restreserve.Model.Rating;
 import com.fyp115494258.restreserve.Model.Reservation;
 import com.fyp115494258.restreserve.Model.ReservationSlot;
 import com.fyp115494258.restreserve.Model.Restaurant;
+import com.fyp115494258.restreserve.Model.Sender;
 import com.fyp115494258.restreserve.ViewHolder.RestaurantViewHolder;
 import com.fyp115494258.restreserve.ViewHolder.TimeViewHolder;
+import com.google.android.gms.common.api.Response;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -188,6 +191,19 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
     View Tab1View;
 
 
+    String choosenDate;
+
+    String dateTime;
+
+
+    TextView txtLocalEthos;
+
+
+    TextView txtHours;
+
+
+
+
 
 
 
@@ -274,6 +290,13 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
         restaurant_address = (TextView) Tab1View.findViewById(R.id.restaurant_address);
         restaurant_phoneNumber= (TextView) Tab1View.findViewById(R.id.restaurant_phoneNumber);
+
+        txtLocalEthos=Tab1View.findViewById(R.id.txtLocalEthosDescription);
+
+
+        txtHours=Tab1View.findViewById(R.id.txtHours);
+
+
 
 
 
@@ -467,8 +490,24 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                         dateSelected = txtChooseDate.getText().toString();
 
 
+                        int mMonth=month+1;
+                        String formattedMonth=""+mMonth;
+                        String formattedDayOfMonth=""+dayOfMonth;
 
-                        dateChoosen = txtChooseDate.getText().toString() + currentRestId;
+                        if(mMonth<10){
+
+                             formattedMonth="0"+mMonth;
+                        }
+
+                        if(dayOfMonth<10){
+
+                            formattedDayOfMonth="0"+dayOfMonth;
+                        }
+
+                        dateChoosen = String.valueOf(year+"-"+formattedMonth+"-"+formattedDayOfMonth) + currentRestId;
+
+                        choosenDate=String.valueOf(year+"-"+formattedMonth+"-"+formattedDayOfMonth);
+
 
                         //getTimes();
                         //initRecycler();
@@ -581,78 +620,9 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 final TimeViewHolder mHolder=viewHolder;
                 final ReservationSlot mModel=model;
 
-/*
-                Query getReservationByTime = reservationSlot.orderByChild("time").limitToLast(5);
-
-                getReservationByTime.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        mHolder.btnTime.setText(String.valueOf(mModel.getTime()));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-*/
 
 
-
-
-
-/*
-                ReservationSlot rSlot=new ReservationSlot();
-
-                String time=model.getTime();
-
-                rSlot.setTime(time);
-                times.add(rSlot);
-
-                Collections.sort(times, new Comparator<String>() {
-                    @Override
-                    public int compare(String o1, String o2) {
-                        return o1.getTime();
-                    }
-                });
-
-*/
-
-
-                //List<ReservationSlot> times = Arrays.asList(new ReservationSlot(model.getDate(),model.getTime(),model.getRestaurantId(),model.getDateRestaurantId(),model.getNumberOfPeople()));
-               // times.add();
-
-
-                //Collections.sort(times,(a,b)-> a.getTime()<b.getTime()?-1:a.getTime()==b.getTime()?0:1);
-
-               //viewHolder.btnTime.setText(times);
-
-
-
-/*
-                List<Integer> times = new ArrayList<Integer>();
-                times.add(model.getTime());
-
-
-                Collections.sort(times);
-
-
-
-                for(int i=0;i<times.size();i++){
-
-                    mHolder.btnTime.setText(String.valueOf(times.get(i)));
-
-                }
-
-*/
-
-
-
-
-
-                viewHolder.btnTime.setText("");
+                        viewHolder.btnTime.setText("");
 
                 if(peopleCount <= model.getNumberOfPeople()) {
 
@@ -685,6 +655,8 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
                 //viewHolder.btnTime.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+
+
 
 
 
@@ -784,8 +756,11 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
         //txtReservationSlotKey.setText(reservationSlotKey);
 
 
+        dateTime=choosenDate+"-"+time;
 
-        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),Common.currentUser.getFirstName()+Common.currentUser.getLastName(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),txtDate.getText().toString(),txtTime.getText().toString(),peopleCount);
+
+
+        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),Common.currentUser.getFirstName()+Common.currentUser.getLastName(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),choosenDate,txtTime.getText().toString(),dateTime,peopleCount);
 
 
         alertDialog.setView(make_reservation_layout);
@@ -802,9 +777,18 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 if(newReservation!=null)
                 {
                     reservation.push().setValue(newReservation);
+                    
+                    
+                    
+                    
+                    
+                    
                     Toast.makeText(getActivity(), "" + txtRestaurantName.getText().toString() + " Successfully reserved", Toast.LENGTH_SHORT).show();
 
 
+                    sendNotificationReservation(reservationSlotKey);
+                    
+                    
 
                     resSlot.setNumberOfPeople(updatedNumberOfPeople);
                     reservationSlot.child(reservationSlotKey).setValue(resSlot);
@@ -830,10 +814,10 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
         alertDialog.show();
     }
 
+    private void sendNotificationReservation(String reservationSlotKey) {
 
 
-
-
+    }
 
 
     private void getDetailRestaurant(String restaurantId) {
@@ -857,6 +841,10 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                 restaurant_description.setText(currentRestaurant.getDescription());
 
                 restaurant_phoneNumber.setText(currentRestaurant.getPhoneNumber());
+
+                txtLocalEthos.setText(currentRestaurant.getLocalEthos());
+
+                txtHours.setText(currentRestaurant.getHours());
 
 
 

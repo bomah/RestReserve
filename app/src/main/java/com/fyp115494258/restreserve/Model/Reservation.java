@@ -6,28 +6,32 @@ public class Reservation {
     private String restaurantName;
     private String personName;
     private String personPhoneNumber;
-    private String adminPhoneNumber;
+    private String adminEmail;
     private String date;
     private String time;
+    private String dateTime;
     private int numberOfPeople;
 
     public Reservation(){
 
     }
 
-    public Reservation(String RestaurantId,String RestaurantName,String PersonName,String PersonPhoneNumber,String AdminPhoneNumber,String Date, String Time, int NumberOfPeople){
+    public Reservation(String RestaurantId,String RestaurantName,String PersonName,String PersonPhoneNumber,String AdminEmail,String Date, String Time, String DateTime, int NumberOfPeople){
 
         setRestaurantId(RestaurantId);
         setRestaurantName(RestaurantName);
         setPersonName(PersonName);
         setPersonPhoneNumber(PersonPhoneNumber);
-        setAdminPhoneNumber(AdminPhoneNumber);
+        setAdminEmail(AdminEmail);
         setDate(Date);
         setTime(Time);
+        setDateTime(DateTime);
         setNumberOfPeople(NumberOfPeople);
 
 
     }
+
+
 
 
 
@@ -87,11 +91,21 @@ public class Reservation {
         this.personPhoneNumber = personPhoneNumber;
     }
 
-    public String getAdminPhoneNumber() {
-        return adminPhoneNumber;
+
+
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setAdminPhoneNumber(String adminPhoneNumber) {
-        this.adminPhoneNumber = adminPhoneNumber;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getAdminEmail() {
+        return adminEmail;
+    }
+
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
     }
 }

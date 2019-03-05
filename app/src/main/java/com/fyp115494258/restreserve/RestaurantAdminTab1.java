@@ -51,6 +51,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -60,7 +61,7 @@ import java.util.Calendar;
 public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback {
 
 
-    TextView restaurant_name, restaurant_description, restaurant_phoneNumber;
+    TextView restaurant_name, restaurant_description, restaurant_phoneNumber,restaurant_address;
     ImageView restaurant_image;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -120,6 +121,10 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
     String dateRestaurantId;
 
+    String dateChoosen="";
+
+    String dateTime="";
+
 
     //People
     TextView txtNumOfPeople;
@@ -134,6 +139,10 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
     View RestaurantAdminTab1View;
 
+
+    TextView txtLocalEthos;
+
+    TextView txtHours;
 
 
     public RestaurantAdminTab1() {
@@ -176,10 +185,14 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
 
 
+        txtLocalEthos=(TextView) RestaurantAdminTab1View.findViewById(R.id.txtLocalEthosDescription);
 
+        txtHours=(TextView) RestaurantAdminTab1View.findViewById(R.id.txtHours);
 
 
         restaurant_description = (TextView) RestaurantAdminTab1View.findViewById(R.id.restaurant_description);
+
+        restaurant_address=(TextView) RestaurantAdminTab1View.findViewById(R.id.restaurant_address);
 
 
         restaurant_phoneNumber= (TextView) RestaurantAdminTab1View.findViewById(R.id.restaurant_phoneNumber);
@@ -323,8 +336,27 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
                         edtChooseDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
 
+                        int mMonth=month+1;
+                        String formattedMonth=""+mMonth;
+                        String formattedDayOfMonth=""+dayOfMonth;
 
-                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount);
+                        if(mMonth<10){
+
+                            formattedMonth="0"+mMonth;
+                        }
+
+                        if(dayOfMonth<10){
+
+                            formattedDayOfMonth="0"+dayOfMonth;
+                        }
+
+
+
+                        dateChoosen=String.valueOf(year+"-"+formattedMonth+"-"+formattedDayOfMonth);
+                        dateTime=String.valueOf(dateChoosen+"-"+edtChooseTime.getText().toString());
+
+
+                        newReservationSlot = new ReservationSlot(dateChoosen, edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount);
                     }
                 }, year, month, dayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -357,9 +389,16 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
                         //edtChooseTime.setText(hourOfDay + ":" + minute);
 
-                        edtChooseTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        edtChooseTime.setText(String.format("%02d-%02d", hourOfDay, minute));
 
-                        dateRestaurantId= edtChooseDate.getText().toString()+ edtRestaurantId.getText().toString();
+                        dateRestaurantId= dateChoosen+ edtRestaurantId.getText().toString();
+
+
+
+
+
+
+                        dateTime=String.valueOf(dateChoosen+"-"+edtChooseTime.getText().toString());
 
                         //timeInt=hourOfDay
 
@@ -368,7 +407,7 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
                         // newReservationSlot = new ReservationSlot(edtChooseTime.getText().toString(),edtRestaurantId.getText().toString());
 
 
-                        newReservationSlot = new ReservationSlot(edtChooseDate.getText().toString(),edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount);
+                        newReservationSlot = new ReservationSlot(dateChoosen,edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount);
 
 
 
@@ -413,7 +452,7 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
                 if(newReservationSlot!=null)
                 {
-                    reservationSlot.push().setValue(new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,peopleCount));
+                    reservationSlot.push().setValue(new ReservationSlot(dateChoosen, edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount));
 
 
                 }
@@ -449,7 +488,7 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
 
 
-
+                restaurant_address.setText(currentRestaurant.getAddress());
 
 
 
@@ -460,6 +499,11 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
                 restaurant_description.setText(currentRestaurant.getDescription());
 
                 restaurant_phoneNumber.setText(currentRestaurant.getPhoneNumber());
+
+                txtLocalEthos.setText(currentRestaurant.getLocalEthos());
+
+
+                txtHours.setText(currentRestaurant.getHours());
 
 
 

@@ -1,10 +1,13 @@
 package com.fyp115494258.restreserve;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +27,20 @@ public class RestaurantAdminReservationList extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Reservation,RestaurantAdminReservationViewHolder> adapter;
+    FirebaseRecyclerAdapter<Reservation,ReservationViewHolder> adapter;
 
 
     FirebaseDatabase database;
     DatabaseReference reservation;
+
+
+    ViewPager viewPager;
+    RestaurantAdminTabsAdapterReservations tabAdapter;
+
+    TabLayout tabLayout;
+
+    Toolbar tBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,66 +52,31 @@ public class RestaurantAdminReservationList extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reservation = database.getReference("Reservation");
 
-        //Init
-        recyclerView = findViewById(R.id.listReservations);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+
+        tBar=(Toolbar)findViewById(R.id.tBar);
 
 
 
 
-        loadReservations();
+        viewPager = (ViewPager) findViewById(R.id.pagerReservations);
+        tabAdapter = new RestaurantAdminTabsAdapterReservations(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
 
+
+
+
+
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutReservations);
+
+
+
+        tabLayout.setupWithViewPager(viewPager);
 
 
 
     }
 
-    private void loadReservations() {
-
-        Query getReservationByPhone = reservation.orderByChild("adminPhoneNumber")
-                .equalTo(Common.currentUser.getPhoneNumber());
 
 
-        FirebaseRecyclerOptions<Reservation> reservationOptions = new FirebaseRecyclerOptions.Builder<Reservation>()
-                .setQuery(getReservationByPhone,Reservation.class)
-                .build();
-
-        adapter = new FirebaseRecyclerAdapter<Reservation, RestaurantAdminReservationViewHolder>(reservationOptions) {
-            @Override
-            protected void onBindViewHolder(@NonNull RestaurantAdminReservationViewHolder viewHolder, int position, @NonNull Reservation model) {
-
-                viewHolder.txtPersonName.setText(model.getPersonName());
-                viewHolder.txtPersonPhoneNumber.setText(model.getPersonPhoneNumber());
-
-                viewHolder.txtDate.setText(model.getDate());
-                viewHolder.txtTime.setText(model.getTime());
-                viewHolder.txtNumberOfPeople.setText(String.valueOf(model.getNumberOfPeople()).concat(" People"));
-
-
-            }
-
-            @NonNull
-            @Override
-            public RestaurantAdminReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.restaurant_admin_reservation_layout,parent,false);
-                return new RestaurantAdminReservationViewHolder(itemView);
-
-
-            }
-        };
-        adapter.startListening();
-        //adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
 }

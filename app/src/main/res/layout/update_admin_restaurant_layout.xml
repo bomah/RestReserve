@@ -60,6 +60,23 @@
 
         <EditText
 
+            android:id="@+id/edtLocalEthos"
+            android:hint="Local Ethos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text=""
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:inputType="text"
+
+
+
+
+            />
+
+        <EditText
+
             android:id="@+id/edtAddress"
             android:hint="Address"
             android:layout_width="match_parent"
@@ -68,6 +85,23 @@
             android:text=""
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
+            android:inputType="text"
+
+
+
+
+            />
+
+        <EditText
+
+            android:id="@+id/edtHours"
+            android:hint="Hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text=""
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
             android:inputType="text"
 
 

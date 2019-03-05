@@ -72,7 +72,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
     //Server side
-    EditText edtName,edtDescription,edtPhoneNumber,edtAdminEmail;
+    EditText edtName,edtDescription,edtPhoneNumber,edtAdminEmail,edtHours,edtLocalEthos;
 
     Button btnUpload,btnSelect;
 
@@ -372,6 +372,8 @@ public class RestaurantAdminHome extends AppCompatActivity
 
         edtName = add_restaurant_layout.findViewById(R.id.edtName);
         edtDescription = add_restaurant_layout.findViewById(R.id.edtDescription);
+        edtHours= add_restaurant_layout.findViewById(R.id.edtHours);
+        edtLocalEthos= add_restaurant_layout.findViewById(R.id.edtLocalEthos);
 
         edtPhoneNumber= add_restaurant_layout.findViewById(R.id.edtPhoneNumber);
         //
@@ -383,6 +385,8 @@ public class RestaurantAdminHome extends AppCompatActivity
         //set default name
         edtName.setText(item.getName());
         edtAdminEmail.setText(item.getAdminEmail());
+        edtHours.setText(item.getHours());
+        edtLocalEthos.setText(item.getLocalEthos());
 
 
         edtPhoneNumber.setText(item.getPhoneNumber());
@@ -422,8 +426,10 @@ public class RestaurantAdminHome extends AppCompatActivity
 
                 //Update Information
                 item.setName(edtName.getText().toString());
+                item.setHours(edtHours.getText().toString());
 
                 item.setDescription(edtDescription.getText().toString());
+                item.setLocalEthos(edtLocalEthos.getText().toString());
                 item.setPhoneNumber(edtPhoneNumber.getText().toString());
                 item.setAdminEmail(edtAdminEmail.getText().toString());
                 restaurant.child(key).setValue(item);
