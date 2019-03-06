@@ -554,6 +554,10 @@ public class Home extends AppCompatActivity
             Intent reservationList = new Intent(Home.this, ReservationList.class);
             startActivity(reservationList);
 
+        } else if (id == R.id.nav_contactUs) {
+            Intent contactUs = new Intent(Home.this, ContactUs.class);
+            startActivity(contactUs);
+
         }
         else if (id == R.id.nav_logout) {
 

@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="Events"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_centerHorizontal="true"
 
                 />
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:text="Upcoming Events"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_centerHorizontal="true"/>
 
 
