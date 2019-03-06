@@ -114,7 +114,7 @@ public class PastReservations extends Fragment {
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
         String todayString=formatter.format(todayDate);
 
-        Toast.makeText(getActivity(), todayString, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), todayString, Toast.LENGTH_SHORT).show();
 
 
 

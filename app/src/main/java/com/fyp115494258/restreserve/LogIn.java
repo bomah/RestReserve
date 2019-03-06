@@ -209,6 +209,15 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
+
+
+
+
+
+                               // Toast.makeText(LogIn.this,Common.restId,Toast.LENGTH_SHORT).show();
+
+
+
                                 Intent hIntent= new Intent(LogIn.this,RestaurantAdminHome.class);
 
                                 hIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

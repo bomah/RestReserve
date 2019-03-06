@@ -233,6 +233,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
+
                 viewHolder.txtRestaurantName.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(viewHolder.imageView);
 
@@ -252,8 +253,8 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
-                                                        Intent restaurantDetail = new Intent(RestaurantAdminHome.this, RestaurantAdminRestaurantDet.class);
-                                                        restaurantDetail.putExtra("RestaurantId", adapter.getRef(position).getKey());
+                                                    Intent restaurantDetail = new Intent(RestaurantAdminHome.this, RestaurantAdminRestaurantDet.class);
+                                                      restaurantDetail.putExtra("RestaurantId", adapter.getRef(position).getKey());
                                                         startActivity(restaurantDetail);
 
                                                     }

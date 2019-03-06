@@ -374,7 +374,7 @@ public class AdminHome extends AppCompatActivity
 
 
 
-                                                        Intent restaurantDetail = new Intent(AdminHome.this, RestaurantDetail.class);
+                                                        Intent restaurantDetail = new Intent(AdminHome.this, RestaurantAdminRestaurantDet.class);
                                                         restaurantDetail.putExtra("RestaurantId", adapter.getRef(position).getKey());
                                                         startActivity(restaurantDetail);
 

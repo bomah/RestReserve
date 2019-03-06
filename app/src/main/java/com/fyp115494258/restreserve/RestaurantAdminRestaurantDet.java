@@ -66,6 +66,7 @@ public class RestaurantAdminRestaurantDet extends AppCompatActivity  {
         setContentView(R.layout.activity_restaurant_admin_restaurant_det);
 
 
+
         if (getIntent() != null)
             RestaurantId = getIntent().getStringExtra("RestaurantId");
 
@@ -118,12 +119,17 @@ public class RestaurantAdminRestaurantDet extends AppCompatActivity  {
             //getTimes(RestaurantId);
 
 
-            getDetailRestaurant(RestaurantId);
+          getDetailRestaurant(RestaurantId);
 
-            getRatingRestaurant(RestaurantId);
+           getRatingRestaurant(RestaurantId);
 
 
         }
+
+
+        //getDetailRestaurant(RestaurantId);
+
+        //getRatingRestaurant(RestaurantId);
 
 
     }

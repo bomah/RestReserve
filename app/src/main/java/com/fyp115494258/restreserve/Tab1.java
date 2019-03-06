@@ -760,7 +760,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
 
 
-        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),Common.currentUser.getFirstName()+Common.currentUser.getLastName(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),choosenDate,txtTime.getText().toString(),dateTime,peopleCount);
+        newReservation=new Reservation(currentRestId,txtRestaurantName.getText().toString(),Common.currentUser.getFirstName()+" "+Common.currentUser.getLastName(),Common.currentUser.getPhoneNumber(),Common.currentRestaurant.getAdminEmail(),dateSelected,txtTime.getText().toString(),dateTime,peopleCount);
 
 
         alertDialog.setView(make_reservation_layout);

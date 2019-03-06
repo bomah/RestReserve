@@ -30,6 +30,13 @@
                 android:id="@+id/edtChooseDate"
                 />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Choosen Time"
+                android:id="@+id/edtChoosenTime"
+                android:visibility="gone"
+                />
 
 
             <EditText

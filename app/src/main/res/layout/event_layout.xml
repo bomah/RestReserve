@@ -49,7 +49,7 @@
 
         <ImageView
             android:id="@+id/imgEvent"
-            android:background="@drawable/background"
+
             android:layout_below="@+id/txtEventDescription"
             android:scaleType="centerCrop"
 

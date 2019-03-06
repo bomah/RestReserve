@@ -333,7 +333,7 @@ public class AdminEvents extends AppCompatActivity {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminEvents.this);
 
-        alertDialog.setTitle("Add new starter");
+        alertDialog.setTitle("Add new upcoming event");
 
         alertDialog.setMessage("Please provide details");
 
