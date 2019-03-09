@@ -95,14 +95,14 @@ public class RestaurantAdminHome extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_restaurant_admin_home);
 
         mAuth=FirebaseAuth.getInstance();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Menu");
+        toolbar.setTitle("Rest Reserve");
         //setSupportActionBar(toolbar);
 
         //2nd iteration
@@ -115,14 +115,7 @@ public class RestaurantAdminHome extends AppCompatActivity
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                //
-            }
-        });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

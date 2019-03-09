@@ -93,7 +93,7 @@ public class AdminHome extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_admin_home);
 
 
         mAuth=FirebaseAuth.getInstance();
@@ -103,7 +103,7 @@ public class AdminHome extends AppCompatActivity
 
 
 
-        toolbar.setTitle("Menu");
+        toolbar.setTitle("Rest Reserve");
         //setSupportActionBar(toolbar);
 
 
