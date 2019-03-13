@@ -156,6 +156,7 @@ public class Home extends AppCompatActivity
 
         //Referred to the following
         //https://www.youtube.com/watch?v=m-_9YM_aHnM&index=58&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V
+        ////https://www.youtube.com/watch?v=1Gf34Z7aops&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=61
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 

@@ -55,6 +55,7 @@ public class AdminHome extends AppCompatActivity
 
 
     //2nd Iteration
+    //https://www.youtube.com/watch?v=fItHmbRQUW8&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=9
 
     FirebaseDatabase database;
     DatabaseReference restaurant;
@@ -174,6 +175,10 @@ public class AdminHome extends AppCompatActivity
 
     }
 
+
+    //https://www.youtube.com/watch?v=J2yKxB4wJR4&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=8
+    //https://www.youtube.com/watch?v=fItHmbRQUW8&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=9
+
     private void showDialog(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminHome.this);
 
@@ -262,6 +267,8 @@ public class AdminHome extends AppCompatActivity
     }
 
 
+    //https://www.youtube.com/watch?v=fItHmbRQUW8&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=9
+
     private void uploadImage() {
         if(saveUri != null){
 
@@ -341,6 +348,7 @@ public class AdminHome extends AppCompatActivity
     }
 
 
+    //https://www.youtube.com/watch?v=J2yKxB4wJR4&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=8
 
 
     private void loadRestaurant() {
@@ -457,6 +465,7 @@ public class AdminHome extends AppCompatActivity
     }
 
 
+    //https://www.youtube.com/watch?v=A17OM1TkSqs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=12
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 

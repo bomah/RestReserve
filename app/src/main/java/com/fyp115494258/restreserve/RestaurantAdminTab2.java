@@ -164,6 +164,7 @@ public class RestaurantAdminTab2 extends Fragment {
 
     }
 
+    //https://www.youtube.com/watch?v=fItHmbRQUW8&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=9
     private void addMainCourse() {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -465,6 +466,7 @@ public class RestaurantAdminTab2 extends Fragment {
 
 
 
+    //del/up- //https://www.youtube.com/watch?v=nFUrfuOxrLI&index=10&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V
 
 
     private void deleteStarter(String key) {
@@ -559,6 +561,8 @@ public class RestaurantAdminTab2 extends Fragment {
 
 
     }
+
+    //del/up- //https://www.youtube.com/watch?v=nFUrfuOxrLI&index=10&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V
 
     private void showUpdateStartersDialog(final String key, final FoodMenuItem item) {
 

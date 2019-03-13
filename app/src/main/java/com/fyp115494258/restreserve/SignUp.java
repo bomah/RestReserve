@@ -232,7 +232,7 @@ public class SignUp extends AppCompatActivity {
         User user =new User(currentUserId,edtFirstName.getText().toString(),edtLastName.getText().toString(),edtPhoneNumber.getText().toString(),edtEmail.getText().toString(),edtPassword.getText().toString());
         table_user.child(currentUserId).setValue(user);
 
-        Toast.makeText(SignUp.this,"Registration Successful", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SignUp.this,"Registration successful", Toast.LENGTH_SHORT).show();
         Toast.makeText(SignUp.this,"Please verify your account with email", Toast.LENGTH_SHORT).show();
     }
 }

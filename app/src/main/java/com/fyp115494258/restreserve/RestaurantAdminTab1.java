@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -217,6 +218,8 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
         return RestaurantAdminTab1View;
     }
 
+    //https://www.youtube.com/watch?v=1Gf34Z7aops&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=61
+    //https://www.youtube.com/watch?v=q9uLnd9Zqbg&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=62
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -446,7 +449,7 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
         alertDialog.setIcon(R.drawable.ic_add_black_24dp);
 
         //Set Button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 
@@ -458,6 +461,8 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
                     reservationSlot.push().setValue(new ReservationSlot(edtChooseDate.getText().toString(), edtChooseTime.getText().toString(),edtRestaurantId.getText().toString(),dateRestaurantId,dateTime,peopleCount));
 
 
+                    Toast.makeText(getActivity(), "Time slot created", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -465,7 +470,7 @@ public class RestaurantAdminTab1 extends Fragment implements OnMapReadyCallback 
 
             }
         });
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 

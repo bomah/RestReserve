@@ -60,6 +60,7 @@ public class RestaurantAdminRestaurantDet extends AppCompatActivity  {
     DatabaseReference ratingTbl;
 
 
+    //https://www.youtube.com/watch?v=3Am-iad_Gkg
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +138,7 @@ public class RestaurantAdminRestaurantDet extends AppCompatActivity  {
 
     //Referred to the following
     //https://www.youtube.com/watch?v=LxOMuzV3L20&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=20
+    ////https://www.youtube.com/watch?v=pld3yRFS5WY&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=21
 
     private void getRatingRestaurant(String restaurantId) {
 

@@ -60,6 +60,7 @@ public class Tab2 extends Fragment {
 
 
 
+    //https://www.youtube.com/watch?v=k1RUOexThGs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=3
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

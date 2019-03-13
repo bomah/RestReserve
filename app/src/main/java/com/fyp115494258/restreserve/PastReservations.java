@@ -55,6 +55,10 @@ public class PastReservations extends Fragment {
     }
 
 
+    //https://www.youtube.com/watch?v=W_H4kLoyFYc&list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj&index=45
+    //https://www.youtube.com/watch?v=k1RUOexThGs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=3
+    //https://www.youtube.com/watch?v=3Am-iad_Gkg
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,6 +114,8 @@ public class PastReservations extends Fragment {
         String todayDt = String.valueOf(dt);
 
         */
+
+        //https://stackoverflow.com/questions/1459656/how-to-get-the-current-time-in-yyyy-mm-dd-hhmisec-millisecond-format-in-java
 
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
         String todayString=formatter.format(todayDate);

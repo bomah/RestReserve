@@ -55,6 +55,8 @@ public class ReservationsList extends AppCompatActivity {
 
     }
 
+    //https://www.youtube.com/watch?v=k1RUOexThGs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=3
+
     private void loadReservations() {
 
         Query getReservationByPhone = reservation.orderByChild("personPhoneNumber")

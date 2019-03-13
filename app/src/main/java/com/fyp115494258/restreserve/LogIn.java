@@ -126,7 +126,7 @@ public class LogIn extends AppCompatActivity {
         }
         else
         {
-            loadingBar.setTitle("Login");
+            loadingBar.setTitle("Logging In");
             loadingBar.setMessage("Please wait");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();

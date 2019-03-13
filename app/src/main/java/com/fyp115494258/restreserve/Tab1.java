@@ -345,6 +345,8 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
     }
 
 
+    //https://www.youtube.com/watch?v=1Gf34Z7aops&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=61
+    //https://www.youtube.com/watch?v=q9uLnd9Zqbg&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=62
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -543,7 +545,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
         alertDialog.setIcon(R.drawable.ic_add_black_24dp);
 
         //Set Button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 
@@ -564,7 +566,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
             }
         });
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 
@@ -783,7 +785,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
                     
                     
                     
-                    Toast.makeText(getActivity(), "" + txtRestaurantName.getText().toString() + " Successfully reserved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "" + txtRestaurantName.getText().toString() + " successfully reserved", Toast.LENGTH_SHORT).show();
 
 
                     sendNotificationReservation(reservationSlotKey);
@@ -802,7 +804,7 @@ public class Tab1 extends Fragment implements OnMapReadyCallback {
 
             }
         });
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 

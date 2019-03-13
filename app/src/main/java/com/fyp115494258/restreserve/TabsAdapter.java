@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 public class TabsAdapter extends FragmentStatePagerAdapter {
 
+
+    ////https://www.youtube.com/watch?v=3Am-iad_Gkg
+
     //int mNoOfTabs;
 
     int mCurrentPosition=-1;

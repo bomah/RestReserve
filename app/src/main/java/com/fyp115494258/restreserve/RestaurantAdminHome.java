@@ -56,6 +56,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
     //2nd Iteration
+    //https://www.youtube.com/watch?v=k1RUOexThGs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=3
 
     FirebaseDatabase database;
     DatabaseReference restaurant;
@@ -198,6 +199,7 @@ public class RestaurantAdminHome extends AppCompatActivity
 
 
 
+    //https://www.youtube.com/watch?v=k1RUOexThGs&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=3
 
 
     private void getRestaurant(String adminEmail) {
@@ -348,6 +350,7 @@ public class RestaurantAdminHome extends AppCompatActivity
         return super.onContextItemSelected(item);
     }
 
+    ////https://www.youtube.com/watch?v=nFUrfuOxrLI&index=10&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V
     private void showUpdateDialog(final String key, final Restaurant item) {
 
 

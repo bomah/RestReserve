@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class RestaurantAdminTabsAdapter extends FragmentStatePagerAdapter {
 
 
+    ////https://www.youtube.com/watch?v=3Am-iad_Gkg
+
+
     int mCurrentPosition=-1;
 
     public RestaurantAdminTabsAdapter(FragmentManager fm)

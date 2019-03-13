@@ -9,6 +9,9 @@ import java.util.Map;
 
 public class Common {
 
+
+    ////Referred to the following video: https://www.youtube.com/watch?v=dJm7LACOn80&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=2
+
     public static final int REQUEST_CODE = 1000;
     public static User currentUser;
 

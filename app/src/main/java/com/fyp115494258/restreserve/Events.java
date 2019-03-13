@@ -66,6 +66,8 @@ public class Events extends AppCompatActivity {
     FirebaseRecyclerAdapter<Event, EventViewHolder> upcomingEventAdapter;
 
 
+    //https://www.youtube.com/watch?v=fItHmbRQUW8&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=9
+    //https://www.youtube.com/watch?v=5sz8sjg7hxA&list=PLaoF-xhnnrRW4lXuIhNLhgVuYkIlF852V&index=42
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
